@@ -10,80 +10,34 @@
 
   <br/>
 
-  [![React](https://img.shields.io/badge/React-19-blue.svg?logo=react)](https://react.dev/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
-  [![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg?logo=vite)](https://vitejs.dev/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
   [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-brightgreen.svg?logo=springboot)](https://spring.io/projects/spring-boot)
   [![Java 21](https://img.shields.io/badge/Java-21-orange.svg?logo=openjdk)](https://www.oracle.com/java/technologies/downloads/)
   [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg?logo=postgresql)](https://www.postgresql.org/)
   [![Redis](https://img.shields.io/badge/Redis-7-red.svg?logo=redis)](https://redis.io/)
   [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3-orange.svg?logo=rabbitmq)](https://www.rabbitmq.com/)
-  [![Docker](https://img.shields.io/badge/Docker-Supported-blue.svg)](https://www.docker.com/)
-  [![PayOS](https://img.shields.io/badge/Payment-PayOS-green.svg)](https://payos.vn/)
+  [![Docker](https://img.shields.io/badge/Docker-24+-blue.svg?logo=docker&logoColor=2496ED)](https://www.docker.com/)
+  [![PayOS](https://img.shields.io/badge/PayOS-VietQR-15AB64.svg?logo=data%3Aimage/svg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjQwIDEwIDE4NSAxNzUiPjxwYXRoIGZpbGw9IiMxNWFiNjQiIGQ9Ik0yMTUuMjQgNTguMDhjLTEwLjE2LTQxLjQtNDkuNDItNDIuNjktODUuMTItNDEuNjktMjEuMjUuNTktNDMuNTMgMi42OC01OC4wNSAyMC4wMS0xNS4zNCAxOC4zMS0xNC4xNyA1MS44My0xMy4xNCA3NC40NCAyLjEyIDQ2LjM5IDE5LjI4IDYzLjAyIDY1LjUxIDY1LjExIDM1LjUxIDEuNiA3OC40NCAyLjU3IDkwLjE2LTM4Ljg0IDUuMzctMTguOTggNS4zNC01OS44NC42NC03OS4wMlptLTM0LjUzIDc1LjA1Yy0xLjkyIDEuODktNC4zOCAzLjQzLTYuNTUgNS4wMy0xLjAxLjcyLS45OS0uNDYtLjk4LTEuMTktLjA0LTkuMDYtMTMuMTQtNC45My0xOS4wMS00LjU2LTUuMDUuNDgtMTAuOTkuMjctMTQuNC0zLjc2LS42OC0uNzctMS4yNC0uNzktMS45My0uMDQtOC4xNyAxMC42MS0zMi4zNC01LjItMzMuOSA4LjQ3LS4wNC44LS4zNCAxLjc5LTEuMyAxLjItMS45OS0xLjE2LTMuOS0yLjY2LTUuNy00LjExLTEuMDgtLjc5LTEuMTgtMi4xNi0uNzItMy40MSA0LjQyLTEzLjk5IDIwLjY0LTguNTcgMzEuNzQtNy45OCA0LjczLjAxIDYuNDctMi41NiA2LjYzLTYuOTEuMDUtMS4xNi45NC0xLjUyIDIuMDgtMS40OGguMTNjMS40OS0uMDIgMy4zMy0uMDQgNC44Ni4wNS41My4wMy44OS4zNiAxLjA1Ljg0LjE1LjUuMTcgMS4wMS4yMiAxLjU0LjQ2IDcuODYgNy42OSA1Ljg0IDEyLjg2IDUuNDEgNy43OS0xLjA5IDE3LjY3LTIuOTYgMjMuMDMgNC4xOCAxLjE2IDEuNjQgMy4zNiA0Ljk0IDEuODkgNi43Mm0tOS44Mi0xNC41NmMtMi4yOS0uMi00LjkzLS4zOC03LjI5LS4yNS00LjU0LjE3LTEwLjQyIDEuOTItMTUuMDggMS4zOS0xLjE0LS4wNy0yLjE0LS42Mi0yLjM4LTEuNzctLjQxLTEuNzIuMDItMy45NC0xLjE2LTUuMjItMS40Mi0xLjU2LTMuNjQtLjk1LTUuNjItMS4xNy0yLjU3LjAzLTYuNzEtLjctNy43NCwyLjM2LS41NiAyLjcxLjM3IDYuMS0zLjY1IDUuODktMy43My0uMDctNy42MS0uNzYtMTEuNDUtMS4xOS0zLS4zMy01LjktLjU1LTguODItLjE0LTEuMDYuMTMtMi4xNy4yNS0zLjIyLS4wNC00LjU2LTEuNjktOC41LTUuMTYtMTEuMzItOS4xLTQuODUtNi41Mi00LjQ1LTE1LjI1LTIuNTUtMjIuODYgMi40OC0xMC40MyA0LjgxLTIxLjY0IDcuODItMzEuOTQuMzctLjYxIDEuMjktLjA1IDEuODMuMzcgMjMuMTIsMTYuNjQgNTQuODcsMTUuNDEgNzcuODItLjYzLjQ2LjA2LjcxLjg5LjgzIDEuNDEsMy4xOCAxMi45OCA3LjA3IDI2LjI1IDguODMsMzkuNDl2LjE0Yy45OSA5LjYtNy4xNyAyMS44NC0xNi44NCAyMy4yNloiLz48cGF0aCBmaWxsPSIjMTVhYjY0IiBkPSJNMTMwLjQxIDg2LjczYy0uMzgtLjExLS43My0uMTktMS4zOC4wNy0xLjMzLjUzLTIuNTguOTUtNC41MSAxLjA5LTYuMjUuNDUtMTEuODMtMy4yNS0xNC4wNS04Ljc3LS40Ny0xLjE4LTIuMDEtMS41MS0yLjktLjYxYTEzLjk4IDEzLjk4IDAgMCAwLTQuMDIgMTEuMTdjLjY2IDcuMjUgNi45NSAxMi45IDE0LjIzIDEyLjc2IDcuNzktLjE1IDEzLjg0LTYuNTMgMTMuNzktMTQuMTEgMC0uMzgtLjE1LS44Mi0uNDUtMS4xLS4xNS0uMTQtLjM3LS4zOC0uNzEtLjQ5Wk0xNjYuODYgNzkuMTJjLTIuMjEgNS41Mi03LjggOS4yMi0xNC4wNSA4Ljc3LTEuOTItLjE0LTMuMTgtLjU3LTQuNTEtMS4wOS0uNjUtLjI2LTEuMDEtLjE4LTEuMzgtLjA3LS4zNC4xLS41Ny4zNS0uNzEuNDktLjMuMjgtLjQ1LjczLS40NSAxLjEtLjA1IDcuNTggNiAxMy45NiAxMy43OSAxNC4xMSA3LjI4LjE0IDEzLjU3LTUuNTEgMTQuMjMtMTIuNzYuMzktNC4zMS0xLjIxLTguMzMtNC4wMi0xMS4xNy0uOS0uOS0yLjQzLS41Ni0yLjkuNjFaIi8%2BPC9zdmc%2B)](https://payos.vn/)
+  [![React](https://img.shields.io/badge/React-19-blue.svg?logo=react)](https://react.dev/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
+  [![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg?logo=vite)](https://vitejs.dev/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
 </div>
 
 ## Overview
 
 CodeLearning is an e-learning and competitive programming platform that helps learners build programming skills through video-based courses and exercises. It includes an Online Judge for practicing data structures and algorithms, along with ICPC-style programming contests featuring structured rules, real-time rankings, and competitive workflows.
 
-## Tech Stack
-
-| Layer | Technologies and Libraries | Description |
-| :--- | :--- | :--- |
-| **Frontend Core** | React 19, TypeScript 5, Vite 6 | Single Page Application with optimized bundle splitting and fast HMR |
-| **UI and Styling** | Tailwind CSS v4, Framer Motion, Lucide Icons | Responsive user interface with smooth layout animations |
-| **Code Editor** | `@monaco-editor/react` | Monaco Editor integration supporting multiple languages, syntax highlighting, and themes |
-| **Real-time Communication** | SockJS-client, STOMPjs | Bi-directional WebSocket channels for live progress bars and contest synchronization |
-| **Networking & Localization** | Axios, i18next | Centralized API client with interceptors and English/Vietnamese localization |
-| **Backend Core** | Java 21, Spring Boot 3.5.7 | Layered architecture with Spring Data JPA, Spring WebFlux, and Spring Security |
-| **Primary Database** | PostgreSQL 15 | Relational persistence with row-level locking for transactions and balances |
-| **Cache & Concurrency** | Redis 7 (`StringRedisTemplate`) | Atomic counters (`INCR`), short-circuit locking keys, and cache management |
-| **Message Broker** | RabbitMQ 3 (`rabbitmq_delayed_message_exchange`) | Asynchronous email queues and delay-based contest lifecycle scheduling |
-| **Execution Sandbox** | Judge0 API v1.13.1 Sandbox | Multi-language compilation and sandboxed execution inside isolated Docker containers |
-| **Payment Gateway** | PayOS SDK (VietQR NAPAS247) | Dynamic bank transfer QR code generation, HMAC-SHA256 signature verification |
-| **Email Delivery** | SendGrid v3 Dynamic Templates | Batch email delivery, retry queues, and webhook delivery telemetry |
-| **Media Storage** | Cloudinary API | Cloud storage and CDN delivery for course media, attachments, and profile images |
-| **Infrastructure & DevOps** | Docker, Docker Compose, NGINX | Multi-stage builds and container orchestration across development and production profiles |
-
 ## Key Features
 
-### 1. Online Judge and Automated Code Evaluation
-* **Monaco Code Editor**: Professional development environment in the browser with auto-completion, bracket matching, indentation guides, and multi-language support (C++, Java, Python, JavaScript).
-* **Asynchronous Sandbox Evaluation**: Submissions are queued and evaluated without blocking backend request threads. The system reports accurate verdicts: `Accepted`, `Wrong Answer`, `Time Limit Exceeded`, `Memory Limit Exceeded`, and `Compilation Error`.
-* **Real-time Progress Streaming**: WebSocket STOMP pushes individual testcase execution results to the client as they finish, driving a dynamic progress indicator.
-* **Short-Circuit Evaluation for Contests**: Halts judgment immediately on the first failed testcase during live contests, conserving sandbox compute resources.
-
-### 2. Contests and Competitive Programming
-* **ICPC Contest Format**: Standard competitive scoring based on solve counts, elapsed time, and submission penalties.
-* **Event-Driven Lifecycle Scheduling**: Transitions contests across `UPCOMING`, `RUNNING`, and `ENDED` states using RabbitMQ Delayed Exchange without recurring database polling.
-* **Live Scoreboards and Freeze Mechanism**: Real-time rank calculations with support for freezing public leaderboards during the final stages of a competition.
-
-### 3. Course Management and E-learning
-* **Hierarchical Structure**: Organizes learning content by Course, Chapter, Lesson, Video, and Quiz components.
-* **Integrated Practice**: Embeds coding exercises directly alongside lecture materials, allowing students to test solutions against sample inputs instantly.
-* **Progress Tracking**: Records student completion state across lessons and computes aggregate course progress.
-
-### 4. Cart, Virtual Wallet, and Payment Integration
-* **Shopping Cart & Promotions**: Multi-item cart management with voucher application and discount calculation.
-* **Dynamic VietQR Integration**: Generates PayOS dynamic QR codes encoding exact order codes and amounts for direct mobile banking transfers.
-* **Internal Virtual Wallet**: Manages internal credits using a double-entry ledger that records balances before and after every transaction.
-* **Transaction Safety**: Protects checkout and deposit operations using PostgreSQL pessimistic locking (`SELECT FOR UPDATE`), late payment recovery (`LATE_SUCCESS`), and scheduled reconciliation jobs.
-
-### 5. Authentication and Access Control
-* **Multiple Auth Providers**: Standard email/password authentication alongside Google OAuth2 Single Sign-On (SSO).
-* **Dual Bearer Token Resolver**: Reads JWT tokens from standard `Authorization: Bearer <token>` headers or secure `HttpOnly`, `SameSite` cookies to mitigate XSS risks.
-* **Refresh Token Rotation (RTR)**: Invalidates spent refresh tokens in PostgreSQL (`invalidated_tokens`), preventing token replay and session hijacking.
-* **Contextual Authorization**: Role-based access control (`STUDENT`, `INSTRUCTOR`, `ADMIN`) supplemented by method-level `@PreAuthorize` SpEL checks for resource ownership.
-
-### 6. Asynchronous Bulk Email Pipeline
-* **Batch Chunking**: Splits large recipient lists into batches of 500 recipients and routes them through RabbitMQ exchanges.
-* **SendGrid Integration**: Injects personalized payload attributes into SendGrid Dynamic Templates.
-* **Dead Letter Queue (DLQ)**: Stores failed deliveries in PostgreSQL for automated retries and logs delivery telemetry via signed SendGrid webhooks.
-
-### 7. Automated Testcase Generation
-* **Scripted Inputs and Expected Outputs**: Instructors provide an input generator script and a reference solution code.
-* **Sandbox Execution**: The system executes both scripts in Judge0 to generate $N$ valid testcases and persists them directly to the database.
+| Feature | Description                                                                                                                                                                                                                              |
+| :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Online Judge & Automated Grading** | In-browser code editor supporting C++, Java, Python, and JavaScript. Users write, test, and submit code to receive instant verdicts (`Accepted`, `Wrong Answer`, `Time Limit Exceeded`, etc.) with real-time testcase progress tracking. |
+| **Competitive Contests** | Hosts ICPC-style programming contests with automated timers, penalty-based scoring, and live leaderboards featuring a freeze phase during the final minutes to maintain competitive suspense.                                            |
+| **Interactive Courses & E-Learning** | Structured curriculum organized into chapters, video lectures, and quizzes. Hands-on coding exercises are integrated directly alongside lessons with personal learning progress tracking.                                                |
+| **Cart, Wallet & Payments** | Multi-item shopping cart with voucher discounts, direct bank transfer via VietQR dynamic QR codes, and an internal virtual wallet for balance top-ups and one-click checkout.                                                            |
+| **Authentication & Role-Based Portals** | Supports email/password login and Google Single Sign-On (SSO), providing role-based workflows and permission controls for Students, Instructors, and Administrators.                                                                     |
+| **Automated Notifications & Emails** | Sends automated email notifications for account confirmations, course enrollments, payment receipts, and platform announcements.                                                                                                         |
+| **Automated Testcase Generator** | Enables instructors to generate comprehensive test suites automatically using an input generator script and a reference solution.                                                                                                        |
 
 ## System Architecture
 
@@ -92,7 +46,7 @@ CodeLearning is an e-learning and competitive programming platform that helps le
 ### Monorepo Directory Structure
 
 ```text
-codelearning-platform/
+CodeLearning/
 ├── backend/                      # Spring Boot 3.5.7 Backend Application (Java 21)
 │   ├── src/main/java/com/thanhmila/codelearning/
 │   │   ├── configuration/        # Bean definitions (Redis, RabbitMQ, WebClient, PayOS, WebSocket)
@@ -158,10 +112,6 @@ Ensure the following tools are installed on your environment:
 #### Backend Configuration (`backend/.env`):
 Create a `.env` file in the `backend/` directory:
 ```env
-# SERVER CONFIG
-PORT=8080
-ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173
-
 # POSTGRES DATABASE
 DB_HOST=localhost
 DB_PORT=5432
@@ -181,21 +131,26 @@ RABBITMQ_PASSWORD=guest
 
 # SECURITY & JWT
 JWT_SIGNER_KEY=your_super_secret_32_characters_key_here
-JWT_ACCESS_COOKIE_NAME=access_token
-JWT_REFRESH_COOKIE_NAME=refresh_token
 
-# THIRD-PARTY INTEGRATIONS
+# CLOUDINARY CONFIGURATION
 CLOUDINARY_CLOUD_NAME=your_cloudinary_name
 CLOUDINARY_API_KEY=your_cloudinary_key
 CLOUDINARY_API_SECRET=your_cloudinary_secret
 
+#PAYOS CONFIGURATION
 PAYOS_CLIENT_ID=your_payos_client_id
 PAYOS_API_KEY=your_payos_api_key
 PAYOS_CHECKSUM_KEY=your_payos_checksum_key
 
 # JUDGE0 SANDBOX (OJ)
 JUDGE0_API_URL=http://localhost:2358
-JUDGE0_WEBHOOK_URL=http://your-ip-or-domain:8080/codelearning/api/v1/online-judge/webhooks/submissions
+JUDGE0_WEBHOOK_URL=http://your-ip-or-domain:8080/codelearning/online-judge/webhooks/submissions (Ngrok)
+
+# SENDGRID CONFIGURATION
+SENDGRID_API_KEY=your_sendgrid_api_key
+SENDGRID_WEBHOOK_PUBLIC_KEY=your_sendgrid_webhook_public_key
+SENDGRID_FROM_EMAIL=your_sendgrid_from_email
+SENDGRID_FROM_NAME=your_sendgrid_from_name
 ```
 
 #### Frontend Configuration (`frontend/.env`):
