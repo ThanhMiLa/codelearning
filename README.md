@@ -1,6 +1,6 @@
 <h1 align="center">
-  <img src="frontend/src/assets/LOGO_SINGLE.png" alt="CodeLearning logo" width="46" />
-  CodeLearning
+  <img src="frontend/src/assets/LOGO_SINGLE.png" alt="CodeLearning logo" width="46" style="vertical-align: middle;" />
+  <span style="vertical-align: middle;">CodeLearning</span>
 </h1>
 
 <div align="center">
