@@ -1,17 +1,12 @@
-# CodeLearning Platform
+<h1 align="center">
+  <img src="frontend/src/assets/LOGO_SINGLE.png" alt="CodeLearning logo" width="46" />
+  CodeLearning
+</h1>
 
 <div align="center">
   <a href="https://www.codelearning.io.vn/" target="_blank">
-    <img src="https://img.shields.io/badge/Live_Demo-https://www.codelearning.io.vn/-blue?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo" />
+    <img src="https://img.shields.io/badge/Explore_the_Platform-https://www.codelearning.io.vn/-blue?style=for-the-badge&logo=vercel&logoColor=white" alt="Explore the Platform" />
   </a>
-
-  <p align="center">
-    An enterprise-grade Full-Stack E-learning and Online Judge platform featuring automated multi-language code evaluation, real-time contest execution, and integrated financial transactions.
-  </p>
-
-  <p align="center">
-    Live Demo: <a href="https://www.codelearning.io.vn/">https://www.codelearning.io.vn/</a>
-  </p>
 
   <br/>
 
@@ -28,22 +23,9 @@
   [![PayOS](https://img.shields.io/badge/Payment-PayOS-green.svg)](https://payos.vn/)
 </div>
 
----
-
 ## Overview
 
-CodeLearning Platform is a full-stack educational and competitive programming system designed with a modern monorepo architecture. The backend is engineered with Java 21 and Spring Boot 3.5.7, and the frontend is powered by React 19, TypeScript, and Vite.
-
-The platform integrates interactive curriculum delivery (video lectures, modular chapters, and quizzes) with in-browser algorithm execution, automated sandbox evaluation, real-time ICPC-style programming contests, and an internal virtual wallet backed by VietQR automated banking integration.
-
-The architecture emphasizes enterprise design patterns—Layered Monolith, Event-Driven Messaging, and Asynchronous Non-blocking I/O—to address high concurrency, financial data integrity, and low-latency communication:
-
-* **High Concurrency Code Evaluation**: Offloads execution workloads to isolated Judge0 sandbox containers via Spring WebFlux non-blocking clients and asynchronous webhooks, coordinated with atomic Redis counters.
-* **Financial Transaction Integrity**: Uses PostgreSQL pessimistic locking (`SELECT FOR UPDATE`), idempotent webhook consumers, and an immutable double-entry ledger to guarantee balance consistency.
-* **Real-time Event Streaming**: Pushes execution progress, contest status transitions, and leaderboard updates to connected clients using WebSocket STOMP.
-* **Defense-in-Depth Security**: Implements dual-source JWT token resolution (Authorization headers and HttpOnly SameSite cookies), Refresh Token Rotation (RTR), token blacklisting, and contextual Spring Expression Language (SpEL) access control.
-
----
+CodeLearning is an e-learning and competitive programming platform that helps learners build programming skills through video-based courses and exercises. It includes an Online Judge for practicing data structures and algorithms, along with ICPC-style programming contests featuring structured rules, real-time rankings, and competitive workflows.
 
 ## Tech Stack
 
@@ -63,8 +45,6 @@ The architecture emphasizes enterprise design patterns—Layered Monolith, Event
 | **Email Delivery** | SendGrid v3 Dynamic Templates | Batch email delivery, retry queues, and webhook delivery telemetry |
 | **Media Storage** | Cloudinary API | Cloud storage and CDN delivery for course media, attachments, and profile images |
 | **Infrastructure & DevOps** | Docker, Docker Compose, NGINX | Multi-stage builds and container orchestration across development and production profiles |
-
----
 
 ## Key Features
 
@@ -105,44 +85,9 @@ The architecture emphasizes enterprise design patterns—Layered Monolith, Event
 * **Scripted Inputs and Expected Outputs**: Instructors provide an input generator script and a reference solution code.
 * **Sandbox Execution**: The system executes both scripts in Judge0 to generate $N$ valid testcases and persists them directly to the database.
 
----
-
 ## System Architecture
 
 ### High-Level Architecture
-
-```
-+--------------------------------------------------------------------------------------------------+
-|                                       CLIENT LAYER (React 19)                                    |
-|   Vite SPA  |  Tailwind CSS v4  |  Monaco Editor  |  Axios HTTP Client  |  WebSocket STOMPjs     |
-+-----------------------------------------------+--------------------------------------------------+
-                                                | REST APIs & WebSockets
-                                                v
-+--------------------------------------------------------------------------------------------------+
-|                                 APPLICATION BACKEND (Spring Boot 3.5.7)                          |
-|   Controller Layer   -->  Service Layer (Business Logic)   -->  Data Access Layer (JPA Repos)    |
-|   Security / Filter  -->  Custom JWT Decoder / SpEL Eval   -->  WebClient Non-blocking Calls     |
-+---------------+-------------------------------+-----------------------------------+--------------+
-                | JDBC / HikariCP               | Lettuce Redis Driver              | AMQP Protocol
-                v                               v                                   v
-+-----------------------------+ +-----------------------------+ +----------------------------------+
-|   PostgreSQL 15 Database    | |       Redis 7 Cache         | |         RabbitMQ 3 Broker        |
-|  - Relational Data Schemas  | |  - OJ Progress Counter      | |  - Delayed Contest Exchange      |
-|  - Wallets (Row-level Lock) | |  - Short-Circuit Locks      | |  - Asynchronous Bulk Email Queue |
-|  - Token Blacklist Store    | |  - Application Cache        | |  - Dead Letter Exchange (DLX)    |
-+-----------------------------+ +-----------------------------+ +----------------------------------+
-                ^                                                                   ^
-                | Direct API / Webhooks                                             | Webhooks
-                v                                                                   v
-+-----------------------------+                                 +----------------------------------+
-|   Judge0 v1.13.1 Sandbox    |                                 |     External Integrations        |
-|  - Isolated Docker Sandbox  |                                 |  - PayOS Payment Gateway (VietQR)|
-|  - Multi-language Execution |                                 |  - SendGrid Email API v3         |
-|  - Async Webhook Dispatcher |                                 |  - Cloudinary Media Storage      |
-+-----------------------------+                                 +----------------------------------+
-```
-
----
 
 ### Monorepo Directory Structure
 
@@ -199,8 +144,6 @@ codelearning-platform/
 └── README.md                     # Main repository documentation
 ```
 
----
-
 ## Getting Started
 
 ### Prerequisites
@@ -209,8 +152,6 @@ Ensure the following tools are installed on your environment:
 * [Docker and Docker Compose](https://www.docker.com/) (Required for containerized runtime)
 * [JDK 21](https://www.oracle.com/java/technologies/downloads/) (Required for local backend development)
 * [Node.js 20+](https://nodejs.org/) and `npm` (Required for local frontend development)
-
----
 
 ### 1. Environment Configuration
 
@@ -264,8 +205,6 @@ VITE_API_BASE_URL=http://localhost:8080/codelearning
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
 ```
 
----
-
 ### 2. Running with Docker Compose (Recommended)
 
 Docker Compose is configured with service healthchecks. Infrastructure components (PostgreSQL, Redis, RabbitMQ, and Judge0) start and verify health before launching the Spring Boot backend and React frontend.
@@ -279,8 +218,6 @@ docker compose -f docker-compose.dev.yml --profile backend --profile frontend --
 ```bash
 docker compose -f docker-compose.prod.yml --profile backend --profile frontend --profile judge0 up -d
 ```
-
----
 
 ### 3. Running Locally
 
@@ -306,12 +243,3 @@ npm install
 npm run dev
 ```
 The frontend application will be available at `http://localhost:5173`.
-
----
-
-## Author
-
-* **Vo Ngoc Thanh (Thanh_MiLa)**
-* **GitHub**: [@ThanhMiLa](https://github.com/ThanhMiLa)
-* **Live Demo**: [https://www.codelearning.io.vn/](https://www.codelearning.io.vn/)
-* **Role**: Full-Stack & System Architect Engineer
