@@ -43,66 +43,42 @@ CodeLearning is an e-learning and competitive programming platform that helps le
 
 ### High-Level Architecture
 
-The platform is designed around a decoupled, event-driven architecture connecting the React frontend, Spring Boot core API, sandbox execution engine, asynchronous message broker, and external third-party services:
-
 ```mermaid
-%%{init: {'flowchart': {'curve': 'linear'}}}%%
+%%{init: {'flowchart': {'curve': 'linear'}, 'themeVariables': {'clusterBkg': '#161a1d', 'clusterBorder': '#161a1d'}}}%%
 flowchart TD
-    subgraph ClientTier ["Client Tier"]
-        FE["<b>Frontend</b><br/>React 19 • TypeScript • Vite"]
+    subgraph ClientTier [" "]
+        FE["Frontend"]
     end
 
-    subgraph CoreTier ["Application Core"]
-        BE["<b>Backend API</b><br/>Spring Boot 3.5 • Java 21"]
+    subgraph CoreTier [" "]
+        BE["Backend"]
     end
 
-    subgraph DataAndExecution ["Data & Execution Infrastructure"]
-        DB[("<b>PostgreSQL 15</b><br/>Primary Relational Database")]
-        JUDGE0["<b>Judge0 Sandbox</b><br/>Isolated Code Execution Engine"]
+    subgraph ServiceRow [" "]
+        direction LR
+        PAYOS["PayOS"]
+        JUDGE0["Judge0"]
+        RABBIT["RabbitMQ"]
     end
 
-    subgraph PaymentGateway ["Payment Integration"]
-        PAYOS["<b>PayOS</b><br/>VietQR Payment Gateway"]
-    end
-
-    subgraph MessagingService ["Messaging & Email Pipeline"]
-        RABBIT["<b>RabbitMQ 3</b><br/>Message Broker"]
-        SENDGRID["<b>SendGrid</b><br/>Transactional Email API"]
+    subgraph StorageAndEmailRow [" "]
+        direction LR
+        DB[("PostgreSQL")]
+        SENDGRID["SendGrid"]
     end
 
     %% Client Communication
     FE <--> |"REST API / WebSocket STOMP"| BE
 
-    %% Internal Database & Sandbox
-    BE <--> |"JDBC / Transactions & Pessimistic Locks"| DB
-    BE <--> |"Batch Submissions / Verdict Webhooks"| JUDGE0
-
-    %% Payment Gateway
+    %% External & Execution Services
     BE <--> |"Checkout Links / Payment Webhooks"| PAYOS
-
-    %% Async Email Pipeline
+    BE <--> |"Batch Submissions / Verdict Webhooks"| JUDGE0
     BE ---> |"AMQP Event Publishing"| RABBIT
     RABBIT ---> |"Worker Email Dispatch"| SENDGRID
+
+    %% Data and email delivery
+    BE <--> |"JDBC / Transactions & Locks"| DB
 ```
-
-#### Service Interaction & Communication Protocols
-
-| Source / Target | Protocol / Port | Interaction Pattern & Purpose |
-| :--- | :--- | :--- |
-| **Frontend ↔ Backend** | **HTTP/REST** (Port `8080`)<br/>**WebSocket / STOMP** | Client sends authenticated REST requests (JWT bearer tokens) for user actions, course enrollments, and code submissions. The backend pushes live testcase evaluation progress and real-time contest leaderboard updates back to the browser via STOMP over SockJS. |
-| **Backend ↔ PostgreSQL** | **JDBC / TCP** (Port `5432`) | Manages primary persistent storage for users, courses, contest states, submissions, and wallet ledgers. Enforces strict transactional integrity and row-level pessimistic locking (`SELECT FOR UPDATE`) for wallet and checkout operations. |
-| **Backend ↔ Judge0** | **HTTP REST & Webhook** (Port `2358`) | **Submission**: Backend packages problem testcases into non-blocking batch requests via Spring WebFlux `WebClient` (`POST /submissions/batch`).<br/>**Verdict**: Upon sandboxed execution, Judge0 issues asynchronous callback webhooks (`PUT /online-judge/webhooks/submissions`) with individual testcase results (AC, WA, TLE, etc.). |
-| **Backend ↔ RabbitMQ** | **AMQP** (Port `5672`) | Backend acts as both producer and consumer. Business events (account registration, order placement, wallet top-ups) are published to durable queues/exchanges with delayed-retry capabilities, decoupling long-running background jobs from HTTP request threads. |
-| **Backend → SendGrid** | **HTTPS REST API** | RabbitMQ email consumers invoke SendGrid API endpoints to dispatch transactional emails (activation tokens, purchase receipts, platform notices) asynchronously with delivery tracking. |
-| **Backend ↔ PayOS** | **HTTPS REST & Webhook** | **Checkout**: Backend contacts PayOS API to generate dynamic VietQR payment links.<br/>**Confirmation**: Upon bank transfer completion, PayOS calls the backend webhook endpoint with an HMAC-SHA256 signature, triggering atomic wallet balance updates. |
-
-For in-depth architectural workflows and technical deep-dives, see the [Architecture Documentation](docs/architecture/):
-- [Online Judge Workflow](docs/architecture/online_judge_workflow.md)
-- [Payment & Checkout Workflow](docs/architecture/payment_checkout_workflow.md)
-- [Contest Scheduling Workflow](docs/architecture/contest_scheduling_workflow.md)
-- [Security & Authorization Workflow](docs/architecture/security_authorization_workflow.md)
-- [Email Processing Pipeline](docs/architecture/email_pipeline_workflow.md)
-- [Testcase Generation Workflow](docs/architecture/testcase_generation_workflow.md)
 
 ### Monorepo Directory Structure
 
