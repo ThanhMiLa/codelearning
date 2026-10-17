@@ -40,9 +40,6 @@ CodeLearning is an e-learning and competitive programming platform that helps le
 | **Automated Testcase Generator** | Enables instructors to generate comprehensive test suites automatically using an input generator script and a reference solution.                                                                                                        |
 
 ## System Architecture
-
-### High-Level Architecture
-
 ```mermaid
 %%{init: {'flowchart': {'curve': 'linear'}, 'themeVariables': {'clusterBkg': '#161a1d', 'clusterBorder': '#161a1d'}}}%%
 flowchart TD
@@ -79,62 +76,6 @@ flowchart TD
     %% Data and email delivery
     BE <--> |"JDBC / Transactions & Locks"| DB
 ```
-
-### Monorepo Directory Structure
-
-```text
-CodeLearning/
-├── backend/                      # Spring Boot 3.5.7 Backend Application (Java 21)
-│   ├── src/main/java/com/thanhmila/codelearning/
-│   │   ├── configuration/        # Bean definitions (Redis, RabbitMQ, WebClient, PayOS, WebSocket)
-│   │   ├── controller/           # REST Controllers grouped by domain
-│   │   │   ├── auth/             # Authentication, token rotation, SSO endpoints
-│   │   │   ├── contest/          # Contest lifecycle, problem sets, submissions, leaderboard
-│   │   │   ├── course/           # Courses, chapters, lessons, video, quizzes
-│   │   │   ├── oj/               # Online Judge problems, submissions, testcases
-│   │   │   └── payment/          # Cart, orders, wallet, PayOS callbacks
-│   │   ├── dto/                  # Data Transfer Objects (Request / Response payloads)
-│   │   ├── entity/               # JPA Entities mapped to PostgreSQL
-│   │   ├── exception/            # Centralized exception handlers (GlobalExceptionHandler)
-│   │   ├── listener/             # RabbitMQ message consumers
-│   │   ├── mapper/               # MapStruct mappers (Entity <-> DTO)
-│   │   ├── repository/           # Spring Data JPA repositories (Projections, Specifications)
-│   │   ├── scheduler/            # Scheduled tasks (reconciliation, token cleanup)
-│   │   ├── security/             # Spring Security, custom JWT decoder, SpEL evaluators
-│   │   └── service/              # Core business logic services
-│   ├── Dockerfile                # Multi-stage Docker build for backend
-│   ├── Dockerfile.rabbitmq       # RabbitMQ image with delayed exchange plugin
-│   └── pom.xml                   # Maven dependencies and plugins
-├── frontend/                     # React 19 + TypeScript + Vite Frontend Application
-│   ├── src/
-│   │   ├── api/                  # Axios HTTP client instances and endpoints
-│   │   ├── assets/               # Static media, icons, and illustrations
-│   │   ├── components/           # Shared UI components (Monaco Editor, Modals, Navbar)
-│   │   ├── context/              # React Context (AuthContext, ThemeContext, CartContext)
-│   │   ├── hooks/                # Custom React hooks
-│   │   ├── layouts/              # Main application and administration layouts
-│   │   ├── locales/              # i18n localization resources (en.json, vi.json)
-│   │   ├── pages/                # Route views (Home, OJ, Courses, Contest, Cart, Admin)
-│   │   ├── types/                # TypeScript interfaces and type definitions
-│   │   └── utils/                # Shared helper functions
-│   ├── Dockerfile                # Production NGINX container build
-│   └── package.json              # Node.js dependencies and scripts
-├── database/                     # Database initialization scripts
-│   └── schema-only.sql           # Canonical PostgreSQL schema
-├── docs/                         # Technical documentation center
-│   └── architecture/             # System architecture and workflow specifications
-│       ├── online_judge_workflow.md
-│       ├── payment_checkout_workflow.md
-│       ├── security_authorization_workflow.md
-│       ├── email_pipeline_workflow.md
-│       ├── contest_scheduling_workflow.md
-│       └── testcase_generation_workflow.md
-├── docker-compose.dev.yml        # Orchestration for development environment
-├── docker-compose.prod.yml       # Orchestration for production deployment
-├── judge0.conf                   # Judge0 sandbox configuration
-└── README.md                     # Main repository documentation
-```
-
 ## Getting Started
 
 ### Prerequisites
