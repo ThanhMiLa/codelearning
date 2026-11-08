@@ -85,6 +85,13 @@
     "preview": {
       "heading": "A look inside",
       "read_only": "Read-only preview",
+      "select_problem": "Example problem",
+      "reverse_description": "Reverse a singly linked list and return its new head.",
+      "reverse_explanation": "The list now runs in reverse order.",
+      "binary_description": "Find the target index in a sorted array, or return -1.",
+      "binary_explanation": "The target 9 is at index 4.",
+      "stairs_description": "Count the ways to climb n steps, taking one or two at a time.",
+      "stairs_explanation": "There are 5 ways to climb 4 steps.",
       "select_language": "Example language",
       "source": "{{language}} example solution",
       "problem": "The challenge",

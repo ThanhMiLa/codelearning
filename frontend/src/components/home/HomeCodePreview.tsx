@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Braces, Check, FileCode2, GitBranch } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { previewProblems } from './previewProblems';
 
 const examples = {
   python: {
@@ -85,16 +86,38 @@ const examples = {
 } as const;
 
 type ExampleLanguage = keyof typeof examples;
+type PreviewProblem = 'twoSum' | keyof typeof previewProblems;
+
+const highlightLine = (line: string) => line.split(/(#include|\b(?:def|return|for|in|while|if|else|class|public|int|const|let|function|None|null|nullptr)\b|\b[A-Za-z_]\w*(?=\s*\()|\b[A-Z][A-Za-z0-9_]*\b|\b\d+\b)/g).map((part, index) => {
+  let kind: string | undefined;
+  if (/^\d+$/.test(part)) kind = 'code-number';
+  else if (/^(?:#include|def|return|for|in|while|if|else|class|public|int|const|let|function|None|null|nullptr)$/.test(part)) kind = 'code-keyword';
+  else if (/^[A-Z]/.test(part)) kind = 'code-type';
+  else if (/^[A-Za-z_]\w*$/.test(part)) kind = 'code-function';
+  return kind ? <span key={index} className={kind}>{part}</span> : part;
+});
 
 const HomeCodePreview = () => {
   const { t } = useTranslation();
   const [language, setLanguage] = useState<ExampleLanguage>('python');
+  const [problem, setProblem] = useState<PreviewProblem>('twoSum');
+  const selected = problem === 'twoSum' ? null : previewProblems[problem];
   const example = examples[language];
+  const extension = { python: 'py', java: 'java', javascript: 'js', cpp: 'cpp' }[language];
+  const filename = selected ? (language === 'java' ? 'Solution.java' : `${selected.filename}.${extension}`) : example.filename;
+  const lines = selected ? selected.code[language].split('\n').map(highlightLine) : example.lines;
 
   return (
     <div className="home-editor">
+      <div className="home-editor-problems" role="group" aria-label={t('home.preview.select_problem')}>
+        {(['twoSum', 'reverse', 'binary', 'stairs'] as PreviewProblem[]).map((key) => (
+          <button key={key} type="button" onClick={() => setProblem(key)} aria-pressed={problem === key}>
+            {key === 'twoSum' ? 'Two Sum' : previewProblems[key].title}
+          </button>
+        ))}
+      </div>
       <div className="home-editor-toolbar">
-        <div className="home-editor-file"><FileCode2 size={14} aria-hidden="true" /><span>{example.filename}</span></div>
+        <div className="home-editor-file"><FileCode2 size={14} aria-hidden="true" /><span>{filename}</span></div>
         <div className="home-editor-languages" role="group" aria-label={t('home.preview.select_language')}>
           {(Object.keys(examples) as ExampleLanguage[]).map((key) => (
             <button key={key} type="button" onClick={() => setLanguage(key)} aria-pressed={language === key}>
@@ -105,7 +128,7 @@ const HomeCodePreview = () => {
       </div>
       <div className="home-editor-body">
         <div className="home-editor-source" tabIndex={0} role="region" aria-label={t('home.preview.source', { language: example.label })}>
-          <pre><code>{example.lines.map((line, index) => (
+          <pre><code>{lines.map((line, index) => (
             <span className="home-code-line" key={index}>
               <span className="home-line-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
               <span>{line}{'\n'}</span>
@@ -114,13 +137,13 @@ const HomeCodePreview = () => {
         </div>
         <aside className="home-editor-problem" aria-label={t('home.preview.problem')}>
           <div className="home-problem-label"><Braces size={14} aria-hidden="true" /> {t('home.preview.problem')}</div>
-          <div className="home-problem-title"><h2>Two Sum</h2><span>{t('home.preview.easy')}</span></div>
-          <p>{t('home.preview.problem_description')}</p>
+          <div className="home-problem-title"><h2>{selected?.title ?? 'Two Sum'}</h2><span>{t('home.preview.easy')}</span></div>
+          <p>{t(problem === 'twoSum' ? 'home.preview.problem_description' : `home.preview.${problem}_description`)}</p>
           <dl className="home-testcase">
-            <div><dt>{t('home.preview.input')}</dt><dd><span>nums</span> = [2, 7, 11, 15]<br /><span>target</span> = 9</dd></div>
-            <div><dt>{t('home.preview.output')}</dt><dd>[0, 1]</dd></div>
+            <div><dt>{t('home.preview.input')}</dt><dd className="home-testcase-value">{selected?.input ?? 'nums = [2, 7, 11, 15]\ntarget = 9'}</dd></div>
+            <div><dt>{t('home.preview.output')}</dt><dd>{selected?.output ?? '[0, 1]'}</dd></div>
           </dl>
-          <div className="home-example-explanation"><Check size={14} aria-hidden="true" /><span>nums[0] + nums[1] = 9</span></div>
+          <div className="home-example-explanation"><Check size={14} aria-hidden="true" /><span>{problem === 'twoSum' ? 'nums[0] + nums[1] = 9' : t(`home.preview.${problem}_explanation`)}</span></div>
         </aside>
       </div>
       <div className="home-editor-statusbar">

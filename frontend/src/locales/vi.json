@@ -85,6 +85,13 @@
     "preview": {
       "heading": "Khám phá không gian lập trình",
       "read_only": "Bản xem trước chỉ đọc",
+      "select_problem": "Bài tập ví dụ",
+      "reverse_description": "Đảo ngược danh sách liên kết đơn và trả về nút đầu mới.",
+      "reverse_explanation": "Danh sách đã được đảo ngược.",
+      "binary_description": "Tìm chỉ số của giá trị trong mảng đã sắp xếp, hoặc trả về -1.",
+      "binary_explanation": "Giá trị 9 nằm ở chỉ số 4.",
+      "stairs_description": "Đếm số cách leo n bậc, mỗi lần đi một hoặc hai bậc.",
+      "stairs_explanation": "Có 5 cách để leo 4 bậc.",
       "select_language": "Ngôn ngữ ví dụ",
       "source": "Lời giải ví dụ bằng {{language}}",
       "problem": "Thử thách",
