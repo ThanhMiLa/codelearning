@@ -89,6 +89,7 @@ describe('Contests', () => {
     mocks.get.mockResolvedValue(response(page([contest]))); mocks.post.mockResolvedValue(response(null));
     mount('/contests', '/contests', <ContestList />);
     await screen.findByText('Weekly Challenge');
+    expect(screen.getByText('Public').parentElement).toHaveClass('text-code-success');
     await userEvent.click(screen.getByRole('button', { name: 'Join Contest' }));
     expect(mocks.post).toHaveBeenCalledWith('/contests/3/register', { password: null });
     expect(await screen.findByTestId('destination')).toHaveTextContent('/contests/3');
@@ -97,6 +98,7 @@ describe('Contests', () => {
     mocks.get.mockResolvedValue(response(page([{ ...contest, public: false }]))); mocks.post.mockResolvedValue(response(null));
     mount('/contests', '/contests', <ContestList />);
     await screen.findByText('Weekly Challenge'); const user = userEvent.setup();
+    expect(screen.getByText('Protected').parentElement).toHaveClass('text-code-error');
     await user.click(screen.getByRole('button', { name: 'Join Contest' }));
     expect(mocks.post).not.toHaveBeenCalled(); const dialog = screen.getByRole('dialog');
     await user.type(within(dialog).getByPlaceholderText(/password/i), 'test-room');

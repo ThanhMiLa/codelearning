@@ -296,12 +296,12 @@ const ContestList: React.FC = () => {
 
                   {/* Public/Private Badge */}
                   {(contest.public ?? contest.isPublic) ? (
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-sm bg-code-elevated text-code-muted text-[10px] font-medium">
+                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-sm bg-code-elevated text-code-success text-[10px] font-medium">
                       <Unlock className="h-3 w-3" />
                       <span>Public</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-sm bg-code-warning-surface text-code-warning text-[10px] font-medium border-code-warning-border border">
+                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-sm bg-code-error-surface text-code-error text-[10px] font-medium border-code-error-border border">
                       <Lock className="h-3 w-3" />
                       <span>Protected</span>
                     </span>
