@@ -200,6 +200,7 @@
     "contests_description": "Giải bài trong thời gian giới hạn. Thi đấu cùng các lập trình viên và theo dõi bảng xếp hạng trực tiếp.",
     "profile_title": "Hồ sơ cá nhân",
     "profile_description": "Quản lý thông tin cá nhân, tài khoản và mật khẩu.",
+    "profile_balance": "Số dư",
     "hide_password": "Ẩn mật khẩu",
     "show_password": "Hiện mật khẩu",
     "payment_title": "Ủng hộ CodeLearning",

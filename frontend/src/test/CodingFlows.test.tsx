@@ -141,6 +141,12 @@ describe('Contests', () => {
 });
 
 describe('Profile and authorization', () => {
+  it('displays the account balance in the profile card', () => {
+    mount('/profile', '/profile', <Profile />);
+    expect(screen.getByText('50.000 VND')).toHaveClass('text-code-success');
+    expect(screen.getByText('50.000 VND').parentElement).toHaveTextContent('Balance: 50.000 VND');
+  });
+
   it('saves profile data as multipart form data', async () => {
     mount('/profile', '/profile', <Profile />); const user = userEvent.setup();
     await user.clear(screen.getByLabelText('Display Name')); await user.type(screen.getByLabelText('Display Name'), 'Updated Developer');

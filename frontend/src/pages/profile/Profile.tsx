@@ -5,6 +5,7 @@ import {
   User,
   Phone,
   Mail,
+  Wallet,
   Lock,
   Save,
   RefreshCw,
@@ -197,6 +198,12 @@ const Profile: React.FC = () => {
                 <div className="flex items-center space-x-3 text-sm text-code-muted">
                   <Phone className="h-4.5 w-4.5 text-code-accent" />
                   <span>{user?.phoneNumber}</span>
+                </div>
+              )}
+              {user && (
+                <div className="flex items-center space-x-3 text-sm text-code-muted">
+                  <Wallet className="h-4.5 w-4.5 shrink-0 text-code-accent" aria-hidden="true" />
+                  <span>{t('coding.profile_balance')}: <span className="font-semibold text-code-success">{Number(user.balance).toLocaleString('vi-VN')} VND</span></span>
                 </div>
               )}
             </div>
