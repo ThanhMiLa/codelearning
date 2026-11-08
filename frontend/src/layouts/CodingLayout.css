@@ -152,7 +152,7 @@ html:has(.coding-shell)::-webkit-scrollbar-thumb {
 .coding-desktop-nav a {
   padding-block: 8px;
   color: var(--coding-muted);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .coding-desktop-nav a:hover, .coding-desktop-nav a[aria-current='page'], .coding-desktop-nav .coding-nav-active {
