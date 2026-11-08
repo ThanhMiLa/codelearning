@@ -193,10 +193,14 @@ html:has(.coding-shell)::-webkit-scrollbar-thumb {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--coding-text);
 }
 
 .coding-account span {
+  font-size: 15px;
   max-width: 130px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -218,6 +222,68 @@ html:has(.coding-shell)::-webkit-scrollbar-thumb {
 
 .coding-account:hover .coding-account-avatar {
   border-color: var(--coding-accent);
+}
+
+.coding-account-menu {
+  position: relative;
+}
+
+.coding-account-dropdown {
+  position: absolute;
+  z-index: 50;
+  top: 100%;
+  right: 0;
+  min-width: 210px;
+  padding: 8px;
+  border: 1px solid var(--coding-border);
+  border-radius: 3px;
+  background: var(--color-code-panel);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.3);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.coding-account-menu:hover .coding-account-dropdown,
+.coding-account-menu:focus-within .coding-account-dropdown {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.coding-account-dropdown a,
+.coding-account-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--coding-text);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.coding-account-dropdown a:hover,
+.coding-account-dropdown button:hover,
+.coding-account-dropdown :focus-visible {
+  background: var(--color-code-elevated);
+  color: var(--coding-accent);
+}
+
+@media (max-width: 760px) {
+  .coding-mobile-account .coding-account-menu { width: 100%; }
+  .coding-mobile-account .coding-account-dropdown {
+    position: static;
+    min-width: 0;
+    margin-top: 12px;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    box-shadow: none;
+  }
 }
 
 .coding-button {

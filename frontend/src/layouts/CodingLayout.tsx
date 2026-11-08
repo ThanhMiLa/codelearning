@@ -38,20 +38,29 @@ const CodingLayout = () => {
   };
 
   const accountLink = isAuthenticated ? (
-    <>
-      <Link to="/profile" className="coding-account" onClick={closeMobileMenu}>
+    <div className="coding-account-menu">
+      <button type="button" className="coding-account">
         {user?.avatarUrl ? (
           <img src={user.avatarUrl} className="coding-account-avatar" width={28} height={28} alt="" />
         ) : (
           <UserRound size={20} aria-hidden="true" />
         )}
         <span>{user?.displayName}</span>
-      </Link>
-      {user?.roles?.some(role => role === 'ADMIN' || role === 'TEACHER') && (
-        <Link to="/admin/dashboard" onClick={closeMobileMenu} aria-label={t('navbar.dashboard')} className="coding-icon-button"><LayoutDashboard size={16} /></Link>
-      )}
-      <button type="button" onClick={handleLogout} aria-label={t('navbar.logout')} title={t('navbar.logout')} className="coding-icon-button"><LogOut size={16} /></button>
-    </>
+      </button>
+      <div className="coding-account-dropdown">
+        {user?.roles?.includes('ADMIN') && (
+          <Link to="/admin/dashboard" onClick={closeMobileMenu}>
+            <LayoutDashboard size={16} aria-hidden="true" />{t('navbar.admin_dashboard')}
+          </Link>
+        )}
+        <Link to="/profile" onClick={closeMobileMenu}>
+          <UserRound size={16} aria-hidden="true" />{t('navbar.profile')}
+        </Link>
+        <button type="button" onClick={handleLogout}>
+          <LogOut size={16} aria-hidden="true" />{t('navbar.logout')}
+        </button>
+      </div>
+    </div>
   ) : (
     <>
       <Link to="/login" className="coding-login" onClick={closeMobileMenu}>

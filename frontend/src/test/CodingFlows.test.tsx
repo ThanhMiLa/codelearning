@@ -46,6 +46,7 @@ const mount = (path: string, pattern: string, element: ReactNode) => render(
 
 beforeEach(() => {
   mocks.auth.isAuthenticated = true;
+  mocks.auth.user.roles = ['USER'];
   mocks.auth.isLoading = false;
   mocks.get.mockReset(); mocks.post.mockReset();
   mocks.subscribe.mockImplementation(() => ({ unsubscribe: mocks.unsubscribe }));
@@ -171,6 +172,22 @@ describe('Profile and authorization', () => {
   it('redirects guests to login with their intended destination', async () => {
     mocks.auth.isAuthenticated = false; mount('/profile', '/profile', <ProtectedRoute><Profile /></ProtectedRoute>);
     expect(await screen.findByTestId('destination')).toHaveTextContent('/login:/profile');
+  });
+  it('shows admin dashboard only for admins without navigating when the account is clicked', async () => {
+    mocks.auth.user.roles = ['ADMIN'];
+    mount('/profile', '/profile', <Profile />);
+    const account = screen.getAllByRole('button', { name: 'Test Developer' })[0];
+    await userEvent.click(account);
+    expect(screen.getByText('Your profile')).toBeInTheDocument();
+    await userEvent.hover(account);
+    expect(screen.getAllByRole('link', { name: 'Admin Dashboard' })[0]).toHaveAttribute('href', '/admin/dashboard');
+    expect(screen.getAllByRole('link', { name: 'Profile' })[0]).toHaveAttribute('href', '/profile');
+  });
+  it('does not show the admin dashboard to non-admin users or teachers', async () => {
+    mocks.auth.user.roles = ['TEACHER'];
+    mount('/profile', '/profile', <Profile />);
+    await userEvent.hover(screen.getAllByRole('button', { name: 'Test Developer' })[0]);
+    expect(screen.queryByRole('link', { name: 'Admin Dashboard' })).not.toBeInTheDocument();
   });
   it('keeps logout accessible in the shared header', async () => {
     mount('/profile', '/profile', <Profile />); await userEvent.click(screen.getAllByRole('button', { name: 'Logout' })[0]);
