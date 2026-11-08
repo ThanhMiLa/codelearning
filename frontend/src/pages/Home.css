@@ -183,23 +183,27 @@
 }
 
 .code-comment {
-  color: #a9a9b8;
+  color: #5c6370;
 }
 
 .code-keyword {
-  color: #d6b5ff;
+  color: #c678dd;
 }
 
 .code-function {
-  color: #e3deb3;
+  color: #61afef;
+}
+
+.code-type {
+  color: #e5c07b;
 }
 
 .code-number {
-  color: #e2ba99;
+  color: #d19a66;
 }
 
 .code-string {
-  color: #b2c99b;
+  color: #98c379;
 }
 
 .home-editor-problem {
