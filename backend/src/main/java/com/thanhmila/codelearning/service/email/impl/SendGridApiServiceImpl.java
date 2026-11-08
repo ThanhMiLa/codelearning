@@ -4,13 +4,14 @@ import com.thanhmila.codelearning.dto.email.SendGridEmailRequest;
 import com.thanhmila.codelearning.service.email.SendGridApiService;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+@ConditionalOnProperty(prefix = "sendgrid", name = "enabled", havingValue = "true", matchIfMissing = true)
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SendGridApiServiceImpl implements SendGridApiService {

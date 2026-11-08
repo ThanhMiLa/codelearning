@@ -97,6 +97,7 @@ google:
   client-id: ${GOOGLE_CLIENT_ID}
 
 sendgrid:
+  enabled: ${SENDGRID_ENABLED:true}
   api-key: ${SENDGRID_API_KEY}
   webhook-public-key: ${SENDGRID_WEBHOOK_PUBLIC_KEY}
   from-email: ${SENDGRID_FROM_EMAIL}
