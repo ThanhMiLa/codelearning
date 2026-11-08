@@ -61,23 +61,70 @@
     "for_developers": "for developers."
   },
   "home": {
-    "hero_badge": "Next-Generation Code Learning Platform",
-    "hero_title_1": "Elevate your thinking,",
-    "hero_title_2": "Master coding skills",
-    "hero_desc": "Practice algorithms on an automated grading system (Online Judge), and join challenging realtime contests.",
-    "btn_get_started": "Get Started",
-    "btn_create_account": "Create Free Account",
-    "features_title": "Comprehensive Learning with 2 Core Pillars",
-    "features_desc": "We provide a structured path to practice algorithms and compete in live programming contests.",
-    "feature_oj_title": "Practice on Online Judge",
-    "feature_oj_desc": "Intuitive editor (Monaco Editor), instant automatic grading. Receive realtime testcase results feedback via WebSocket.",
-    "btn_practice": "Practice Algorithms",
-    "feature_contest_title": "Live Coding Contests",
-    "feature_contest_desc": "Participate in realtime time-limited programming contests. The leaderboard updates in realtime based on score and submission time.",
-    "btn_view_contests": "View Contest Schedule",
-    "stat_students": "Students Joined",
-    "stat_problems": "Coding Problems",
-    "stat_submissions": "Submissions Graded"
+    "navigation": {
+      "home": "Home",
+      "practices": "Practices",
+      "contests": "Contests",
+      "payments": "Payments",
+      "profile": "Profile",
+      "login": "Log in",
+      "register": "Get started",
+      "skip": "Skip to content",
+      "main": "Main navigation",
+      "menu": "Toggle navigation"
+    },
+    "hero": {
+      "title_first": "Level up your",
+      "title_second": "problem solving.",
+      "description": "Sharpen your problem-solving skills, write better code, and put your thinking to the test. One challenge at a time.",
+      "practice": "Start practicing",
+      "contests": "Explore contests",
+      "note": "Just you, your editor, and the next challenge."
+    },
+    "preview": {
+      "heading": "A look inside",
+      "read_only": "Read-only preview",
+      "select_language": "Example language",
+      "source": "{{language}} example solution",
+      "problem": "The challenge",
+      "easy": "Easy",
+      "problem_description": "Find the indices of two numbers that add up to the target.",
+      "input": "Example input",
+      "output": "Expected output",
+      "example_solution": "Example solution",
+      "caption": "Read the problem. Find your approach. Make it pass.",
+      "explore": "Keep exploring"
+    },
+    "explore": {
+      "title": "Two ways to level up.",
+      "description": "Pick your pace. Find your challenge.",
+      "practice_title": "Solve problems.",
+      "practice_description": "Work through algorithms and data structures at your own pace. Try an approach, learn from the result, and come back stronger.",
+      "practice_feature_one": "Problems from easy to hard",
+      "practice_feature_two": "A focused coding workspace",
+      "practice_feature_three": "Test case feedback on your submissions",
+      "practice_link": "Browse practices",
+      "contest_title": "Compete in contests.",
+      "contest_description": "Put your skills on the clock. Solve problems, compete with other developers, and see where you stand on the leaderboard.",
+      "contest_feature_one": "Time-limited programming contests",
+      "contest_feature_two": "Live submission updates",
+      "contest_feature_three": "Rankings that keep you pushing",
+      "contest_link": "Browse contests"
+    },
+    "start": {
+      "title": "Your next solution starts here.",
+      "description": "Create an account. Pick a problem. Find your flow.",
+      "authenticated_description": "Pick a problem and keep your progress going.",
+      "register": "Create an account"
+    },
+    "footer": {
+      "signoff": "Built for the love of problem solving.",
+      "language": "English",
+      "developer_role": "Developer & creator of CodeLearning.",
+      "contact": "Get in touch",
+      "project": "The project",
+      "repository_description": "Explore the source. Build something better."
+    }
   },
   "register": {
     "title": "Create New Account",
@@ -104,8 +151,8 @@
     "medium": "Medium",
     "hard": "Hard",
     "badge": "Online Judge Playground",
-    "title": "Algorithm & Data Structures Practice",
-    "desc": "Challenge yourself with hundreds of coding problems from Easy to Hard. Experience automatic realtime grading.",
+    "title": "Problems",
+    "desc": "Find your next problem. Filter by difficulty, write your solution, and learn from every submission.",
     "search_placeholder": "Search problems by name...",
     "diff_all": "Difficulty: All",
     "diff_easy": "Difficulty: Easy",
@@ -125,7 +172,8 @@
     "showing": "Showing",
     "to": "to",
     "of": "of",
-    "problems": "problems"
+    "problems": "problems",
+    "search": "Search"
   },
   "donate": {
     "title": "Donate to Platform",
@@ -146,5 +194,42 @@
     "cancel_desc": "The transaction was cancelled as requested. No funds were charged.",
     "cancel_status": "Cancelled",
     "button_retry": "Try Again"
+  },
+  "coding": {
+    "contests_title": "Contests",
+    "contests_description": "Solve under pressure. Compete with other developers and follow the live standings.",
+    "profile_title": "Your profile",
+    "profile_description": "Manage your identity, account details, and password.",
+    "hide_password": "Hide password",
+    "show_password": "Show password",
+    "payment_title": "Support CodeLearning",
+    "payment_description": "Choose a contribution to help keep the platform running.",
+    "payment_error": "Could not create your payment link. Please try again.",
+    "payment_total": "Your contribution",
+    "payment_continue": "Continue to payment",
+    "payment_redirect": "You will continue to PayOS to complete your payment securely.",
+    "payment_received": "Thank you for your support.",
+    "payment_verifying": "Verifying payment",
+    "payment_checking": "Checking…",
+    "back_problems": "Back to problems",
+    "programming_language": "Programming language",
+    "loading_account": "Loading account"
+  },
+  "standings": {
+    "table": "Contest standings",
+    "rank": "Rank",
+    "participant": "Participant",
+    "solved": "Solved",
+    "penalty": "Penalty",
+    "summary": "#{{rank}} · {{solved}} solved · {{penalty}}m",
+    "accepted": "Accepted",
+    "unsolved": "Not solved",
+    "unattempted": "Not attempted",
+    "status": "Status",
+    "solve_time": "Solve time",
+    "minutes_one": "{{count}} minute",
+    "minutes_other": "{{count}} minutes",
+    "failed_attempts": "Failed attempts",
+    "close": "Close"
   }
 }

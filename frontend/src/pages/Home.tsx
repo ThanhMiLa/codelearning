@@ -1,131 +1,86 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Code, Trophy, ArrowRight, Cpu } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { ArrowDown, ArrowRight, ArrowUpRight, CornerDownRight, Terminal, Trophy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
+import HomeCodePreview from '../components/home/HomeCodePreview';
+import './Home.css';
 
-const Home: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+const Home = () => {
   const { t } = useTranslation();
+  const { isAuthenticated } = useAuth();
 
   return (
-    <div className="flex flex-col items-center justify-center overflow-hidden">
-      {/* Hero Section */}
-      <section className="relative w-full py-20 md:py-32 bg-gradient-to-b from-indigo-50/70 to-white dark:from-slate-900/40 dark:to-slate-950 flex flex-col items-center justify-center text-center px-4">
-        {/* Background Decorative Blob */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl pointer-events-none -z-10" />
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
-        >
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100/80 dark:border-indigo-900/30 text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-6 uppercase tracking-wider">
-            <Cpu className="h-3.5 w-3.5" />
-            <span>{t('home.hero_badge')}</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
-            {t('home.hero_title_1')} <br />
-            <span className="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">
-              {t('home.hero_title_2')}
-            </span>
-          </h1>
-
-          <p className="mt-6 text-base sm:text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            {t('home.hero_desc')}
-          </p>
-
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Link
-              to="/oj/practice"
-              className="inline-flex items-center justify-center rounded-full bg-indigo-600 px-6 py-3.5 text-base font-semibold text-white hover:bg-indigo-700 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/35 transition-all hover:-translate-y-0.5 active:scale-95 duration-150 group"
-            >
-              <span>{t('home.btn_get_started')}</span>
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-            {!isAuthenticated && (
-              <Link
-                to="/register"
-                className="inline-flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 py-3.5 text-base font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-all hover:-translate-y-0.5 active:scale-95 duration-150"
-              >
-                {t('home.btn_create_account')}
-              </Link>
-            )}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Feature Section */}
-      <section className="w-full py-16 sm:py-24 px-4 bg-slate-50 dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-              {t('home.features_title')}
-            </h2>
-            <p className="mt-4 text-slate-600 dark:text-slate-300">
-              {t('home.features_desc')}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Feature 1 */}
-            <motion.div
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.2 }}
-              className="p-8 rounded-2xl border border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-900/30 shadow-sm hover:shadow-md transition-shadow flex flex-col items-start text-left"
-            >
-              <div className="h-12 w-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6">
-                <Code className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{t('home.feature_oj_title')}</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
-                {t('home.feature_oj_desc')}
-              </p>
-              <Link to="/oj/practice" className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm hover:underline inline-flex items-center group">
-                {t('home.btn_practice')} <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </motion.div>
-
-            {/* Feature 2 */}
-            <motion.div
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.2 }}
-              className="p-8 rounded-2xl border border-slate-200 dark:border-slate-900 bg-white dark:bg-slate-900/30 shadow-sm hover:shadow-md transition-shadow flex flex-col items-start text-left"
-            >
-              <div className="h-12 w-12 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-6">
-                <Trophy className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3">{t('home.feature_contest_title')}</h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
-                {t('home.feature_contest_desc')}
-              </p>
-              <Link to="/contests" className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm hover:underline inline-flex items-center group">
-                {t('home.btn_view_contests')} <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </motion.div>
-          </div>
+    <div className="coding-home">
+      <section className="home-hero coding-container" aria-labelledby="home-title">
+        <h1 id="home-title">
+          <span className="home-title-line">{t('home.hero.title_first')}</span>{' '}
+          <span className="home-title-line">{t('home.hero.title_second')}<span className="home-cursor" aria-hidden="true">_</span></span>
+        </h1>
+        <p className="home-hero-description">{t('home.hero.description')}</p>
+        <div className="home-hero-actions">
+          <Link to="/oj/practice" className="coding-button">
+            <Terminal size={16} aria-hidden="true" />
+            {t('home.hero.practice')}
+            <ArrowUpRight size={16} aria-hidden="true" />
+          </Link>
+          <Link to="/contests" className="coding-button coding-button-secondary">
+            {t('home.hero.contests')}
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+        <p className="home-hero-note"><span aria-hidden="true">//</span> {t('home.hero.note')}</p>
+        <div className="home-preview-heading">
+          <span><span aria-hidden="true">┌─</span> {t('home.preview.heading')}</span>
+          <span>{t('home.preview.read_only')}</span>
+        </div>
+        <HomeCodePreview />
+        <div className="home-preview-caption">
+          <span>{t('home.preview.caption')}</span>
+          <a href="#explore" className="coding-text-link">{t('home.preview.explore')} <ArrowDown aria-hidden="true" /></a>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="w-full py-16 px-4 bg-slate-50 dark:bg-slate-900/20 border-y border-slate-200 dark:border-slate-900">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="text-center">
-            <div className="text-3xl sm:text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">10,000+</div>
-            <div className="mt-2 text-sm text-slate-500 dark:text-slate-400 font-medium">{t('home.stat_students')}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl sm:text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">1,000+</div>
-            <div className="mt-2 text-sm text-slate-500 dark:text-slate-400 font-medium">{t('home.stat_problems')}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl sm:text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">500,000+</div>
-            <div className="mt-2 text-sm text-slate-500 dark:text-slate-400 font-medium">{t('home.stat_submissions')}</div>
-          </div>
+      <section id="explore" className="home-explore coding-container" aria-labelledby="home-explore-title">
+        <div className="home-section-heading">
+          <h2 id="home-explore-title">{t('home.explore.title')}</h2>
+          <p>{t('home.explore.description')}</p>
         </div>
+        <div className="home-pathways">
+          <article className="home-pathway">
+            <div className="home-pathway-command"><Terminal size={18} aria-hidden="true" /><span>practice<span className="home-command-flag"> --at-your-pace</span></span></div>
+            <h3>{t('home.explore.practice_title')}</h3>
+            <p>{t('home.explore.practice_description')}</p>
+            <ul>
+              <li><CornerDownRight size={14} aria-hidden="true" />{t('home.explore.practice_feature_one')}</li>
+              <li><CornerDownRight size={14} aria-hidden="true" />{t('home.explore.practice_feature_two')}</li>
+              <li><CornerDownRight size={14} aria-hidden="true" />{t('home.explore.practice_feature_three')}</li>
+            </ul>
+            <Link to="/oj/practice" className="coding-text-link">{t('home.explore.practice_link')} <ArrowUpRight aria-hidden="true" /></Link>
+          </article>
+          <article className="home-pathway">
+            <div className="home-pathway-command"><Trophy size={18} aria-hidden="true" /><span>contest<span className="home-command-flag"> --challenge-yourself</span></span></div>
+            <h3>{t('home.explore.contest_title')}</h3>
+            <p>{t('home.explore.contest_description')}</p>
+            <ul>
+              <li><CornerDownRight size={14} aria-hidden="true" />{t('home.explore.contest_feature_one')}</li>
+              <li><CornerDownRight size={14} aria-hidden="true" />{t('home.explore.contest_feature_two')}</li>
+              <li><CornerDownRight size={14} aria-hidden="true" />{t('home.explore.contest_feature_three')}</li>
+            </ul>
+            <Link to="/contests" className="coding-text-link">{t('home.explore.contest_link')} <ArrowUpRight aria-hidden="true" /></Link>
+          </article>
+        </div>
+      </section>
+
+      <section className="home-start coding-container" aria-labelledby="home-start-title">
+        <div className="home-start-prompt" aria-hidden="true"><span>❯</span><span className="home-start-cursor" /></div>
+        <div className="home-start-copy">
+          <h2 id="home-start-title">{t('home.start.title')}</h2>
+          <p>{t(isAuthenticated ? 'home.start.authenticated_description' : 'home.start.description')}</p>
+        </div>
+        <Link to={isAuthenticated ? '/oj/practice' : '/register'} className="coding-button">
+          {t(isAuthenticated ? 'home.hero.practice' : 'home.start.register')}
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </Link>
       </section>
     </div>
   );

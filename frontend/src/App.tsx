@@ -5,7 +5,7 @@ import { CartProvider } from './context/CartContext';
 import { WebSocketProvider } from './context/WebSocketContext';
 
 // Layouts
-import MainLayout from './layouts/MainLayout';
+import CodingLayout from './layouts/CodingLayout';
 import LearningLayout from './layouts/LearningLayout';
 
 // Guards
@@ -41,154 +41,156 @@ import { Toaster } from 'react-hot-toast';
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} toastOptions={{
+        style: { background: '#1b1c21', color: '#f7f7fa', border: '1px solid #414149', borderRadius: 3, fontFamily: '"IBM Plex Mono", monospace', fontSize: 12 },
+      }} />
       <AuthProvider>
         <CartProvider>
           <WebSocketProvider>
             <Routes>
               {/* Main Layout Routes */}
-              <Route path="/" element={<MainLayout />}>
-                {/* Public Routes */}
+              <Route element={<CodingLayout />}>
                 <Route index element={<Home />} />
+                {/* Public Routes */}
                 <Route path="courses" element={<CourseCatalog />} />
                 <Route path="courses/:courseId" element={<CourseDetail />} />
                 <Route path="oj/practice" element={<PracticeCatalog />} />
                 <Route path="contests" element={<ContestList />} />
 
                 {/* Guest-only Routes */}
-                <Route 
-                  path="login" 
+                <Route
+                  path="login"
                   element={
                     <GuestRoute>
                       <Login />
                     </GuestRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="register" 
+                <Route
+                  path="register"
                   element={
                     <GuestRoute>
                       <Register />
                     </GuestRoute>
-                  } 
+                  }
                 />
 
                 {/* Protected Routes */}
-                <Route 
-                  path="profile" 
+                <Route
+                  path="profile"
                   element={
                     <ProtectedRoute>
                       <Profile />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="dashboard" 
-                  element={<Navigate to="/oj/practice" replace />} 
+                <Route
+                  path="dashboard"
+                  element={<Navigate to="/oj/practice" replace />}
                 />
-                <Route 
-                  path="my-learning" 
+                <Route
+                  path="my-learning"
                   element={
                     <ProtectedRoute>
                       <MyLearning />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="cart" 
+                <Route
+                  path="cart"
                   element={
                     <ProtectedRoute>
                       <CartPage />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="oj/problems/:problemId" 
+                <Route
+                  path="oj/problems/:problemId"
                   element={
                     <ProtectedRoute>
                       <ProblemWorkspace />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="contests/:contestId" 
+                <Route
+                  path="contests/:contestId"
                   element={
                     <ProtectedRoute>
                       <ContestWorkspace />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="contests/:contestId/leaderboard" 
+                <Route
+                  path="contests/:contestId/leaderboard"
                   element={
                     <ProtectedRoute>
                       <ContestLeaderboard />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="payment/success" 
+                <Route
+                  path="payment/success"
                   element={
                     <ProtectedRoute>
                       <SuccessPage />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="payment/cancel" 
+                <Route
+                  path="payment/cancel"
                   element={
                     <ProtectedRoute>
                       <CancelPage />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="deposit" 
+                <Route
+                  path="deposit"
                   element={
                     <ProtectedRoute>
                       <DepositPage />
                     </ProtectedRoute>
-                  } 
+                  }
                 />
 
                 {/* Admin/Teacher Routes */}
-                <Route 
-                  path="admin/dashboard" 
+                <Route
+                  path="admin/dashboard"
                   element={
                     <RoleRoute allowedRoles={['ADMIN', 'TEACHER']}>
                       <AdminDashboard />
                     </RoleRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="admin/courses/new" 
+                <Route
+                  path="admin/courses/new"
                   element={
                     <RoleRoute allowedRoles={['ADMIN', 'TEACHER']}>
                       <CourseCreator />
                     </RoleRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="admin/quizzes/:lessonId" 
+                <Route
+                  path="admin/quizzes/:lessonId"
                   element={
                     <RoleRoute allowedRoles={['ADMIN', 'TEACHER']}>
                       <QuizManager />
                     </RoleRoute>
-                  } 
+                  }
                 />
-                <Route 
-                  path="admin/problems/:problemId/testcases" 
+                <Route
+                  path="admin/problems/:problemId/testcases"
                   element={
                     <RoleRoute allowedRoles={['ADMIN']}>
                       <TestcaseGenerator />
                     </RoleRoute>
-                  } 
+                  }
                 />
               </Route>
 
               {/* Learning Workspace (No Main Navbar Layout) */}
-              <Route 
-                path="learning/:courseId/lessons/:lessonId" 
+              <Route
+                path="learning/:courseId/lessons/:lessonId"
                 element={
                   <ProtectedRoute>
                     <LearningLayout />

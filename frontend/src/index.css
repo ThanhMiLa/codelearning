@@ -4,8 +4,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  --font-coding: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --color-code-bg: #101115;
+  --color-code-panel: #1b1c21;
+  --color-code-elevated: #27282e;
+  --color-code-border: #414149;
+  --color-code-text: #f7f7fa;
+  --color-code-muted: #b7b7c2;
+  --color-code-accent: #ffad66;
+  --color-code-accent-hover: #ffc38f;
+  --color-code-accent-surface: #2b2724;
+  --color-code-accent-border: #a96838;
+  --color-code-success: #34d399;
+  --color-code-success-surface: #10b9811a;
+  --color-code-success-border: #10b98166;
+  --color-code-warning: #fbbf24;
+  --color-code-warning-surface: #f59e0b1a;
+  --color-code-warning-border: #f59e0b66;
+  --color-code-error: #fb7185;
+  --color-code-error-surface: #f43f5e1a;
+  --color-code-error-border: #f43f5e66;
+}
+
+@theme {
   --font-sans: "Inter", system-ui, sans-serif;
-  
+
   --color-primary-50: #f5f3ff;
   --color-primary-100: #ede9fe;
   --color-primary-200: #ddd6fe;

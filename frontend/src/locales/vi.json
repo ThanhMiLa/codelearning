@@ -61,23 +61,70 @@
     "for_developers": "dành cho các nhà phát triển."
   },
   "home": {
-    "hero_badge": "Nền tảng học lập trình thế hệ mới",
-    "hero_title_1": "Nâng tầm tư duy,",
-    "hero_title_2": "Làm chủ kỹ năng lập trình",
-    "hero_desc": "Luyện tập thuật toán trên hệ thống chấm điểm tự động (Online Judge) và tham gia các kỳ thi lập trình trực tuyến kịch tính.",
-    "btn_get_started": "Bắt đầu ngay",
-    "btn_create_account": "Tạo tài khoản miễn phí",
-    "features_title": "Học tập toàn diện với 2 Trụ cột chính",
-    "features_desc": "Chúng tôi cung cấp lộ trình bài bản giúp bạn rèn luyện thuật toán và cọ xát qua các kỳ thi lập trình trực tuyến.",
-    "feature_oj_title": "Luyện tập trên Online Judge",
-    "feature_oj_desc": "Trình soạn thảo trực quan (Monaco Editor), hệ thống chấm điểm tự động tức thời. Nhận phản hồi kết quả testcase thời gian thực qua WebSocket.",
-    "btn_practice": "Luyện tập Thuật toán",
-    "feature_contest_title": "Kỳ thi lập trình trực tiếp",
-    "feature_contest_desc": "Tham gia vào các kỳ thi lập trình giới hạn thời gian thực tế. Bảng xếp hạng cập nhật thời gian thực dựa trên điểm số và thời gian nộp bài.",
-    "btn_view_contests": "Xem Lịch thi đấu",
-    "stat_students": "Học viên đã tham gia",
-    "stat_problems": "Bài tập lập trình",
-    "stat_submissions": "Lượt nộp bài đã chấm"
+    "navigation": {
+      "home": "Trang chủ",
+      "practices": "Luyện tập",
+      "contests": "Cuộc thi",
+      "payments": "Thanh toán",
+      "profile": "Hồ sơ",
+      "login": "Đăng nhập",
+      "register": "Bắt đầu",
+      "skip": "Đến nội dung chính",
+      "main": "Điều hướng chính",
+      "menu": "Mở hoặc đóng điều hướng"
+    },
+    "hero": {
+      "title_first": "Nâng cao khả năng",
+      "title_second": "giải quyết vấn đề.",
+      "description": "Rèn tư duy giải quyết vấn đề, viết code tốt hơn và thử thách bản thân. Từng bài tập một.",
+      "practice": "Bắt đầu luyện tập",
+      "contests": "Khám phá cuộc thi",
+      "note": "Chỉ bạn, trình soạn thảo và thử thách tiếp theo."
+    },
+    "preview": {
+      "heading": "Khám phá không gian lập trình",
+      "read_only": "Bản xem trước chỉ đọc",
+      "select_language": "Ngôn ngữ ví dụ",
+      "source": "Lời giải ví dụ bằng {{language}}",
+      "problem": "Thử thách",
+      "easy": "Dễ",
+      "problem_description": "Tìm chỉ số của hai số có tổng bằng giá trị mục tiêu.",
+      "input": "Đầu vào ví dụ",
+      "output": "Kết quả mong đợi",
+      "example_solution": "Lời giải ví dụ",
+      "caption": "Đọc đề. Tìm hướng giải. Vượt qua các bài kiểm tra.",
+      "explore": "Tiếp tục khám phá"
+    },
+    "explore": {
+      "title": "Hai cách để tiến bộ.",
+      "description": "Chọn nhịp độ. Tìm thử thách.",
+      "practice_title": "Giải bài tập lập trình.",
+      "practice_description": "Luyện thuật toán và cấu trúc dữ liệu theo nhịp độ của bạn. Thử một cách giải, học từ kết quả và tiếp tục tiến bộ.",
+      "practice_feature_one": "Bài tập từ dễ đến khó",
+      "practice_feature_two": "Không gian tập trung viết code",
+      "practice_feature_three": "Phản hồi từng bộ kiểm thử khi nộp bài",
+      "practice_link": "Xem bài luyện tập",
+      "contest_title": "Tham gia cuộc thi.",
+      "contest_description": "Thử sức trong thời gian giới hạn. Giải bài, thi đấu với các lập trình viên khác và theo dõi thứ hạng trên bảng xếp hạng.",
+      "contest_feature_one": "Cuộc thi lập trình có giới hạn thời gian",
+      "contest_feature_two": "Cập nhật bài nộp trực tiếp",
+      "contest_feature_three": "Bảng xếp hạng thúc đẩy bạn tiến bộ",
+      "contest_link": "Xem cuộc thi"
+    },
+    "start": {
+      "title": "Lời giải tiếp theo bắt đầu từ đây.",
+      "description": "Tạo tài khoản. Chọn bài tập. Tìm cảm hứng.",
+      "authenticated_description": "Chọn một bài tập và tiếp tục hành trình của bạn.",
+      "register": "Tạo tài khoản"
+    },
+    "footer": {
+      "signoff": "Được tạo nên từ niềm yêu thích giải quyết vấn đề.",
+      "language": "Tiếng Anh",
+      "developer_role": "Lập trình viên và người sáng lập CodeLearning.",
+      "contact": "Liên hệ",
+      "project": "Dự án",
+      "repository_description": "Khám phá mã nguồn. Cùng xây dựng tốt hơn."
+    }
   },
   "register": {
     "title": "Tạo tài khoản mới",
@@ -104,8 +151,8 @@
     "medium": "Trung bình",
     "hard": "Khó",
     "badge": "Sân chơi Online Judge",
-    "title": "Luyện tập Thuật toán & Cấu trúc dữ liệu",
-    "desc": "Thử thách bản thân với hàng trăm bài tập lập trình từ Dễ đến Khó. Trải nghiệm hệ thống chấm điểm tự động thời gian thực.",
+    "title": "Bài tập",
+    "desc": "Tìm bài tập tiếp theo. Lọc theo độ khó, viết lời giải và học từ mỗi lần nộp bài.",
     "search_placeholder": "Tìm kiếm bài tập theo tên...",
     "diff_all": "Độ khó: Tất cả",
     "diff_easy": "Độ khó: Dễ",
@@ -125,7 +172,8 @@
     "showing": "Hiển thị từ",
     "to": "đến",
     "of": "trên tổng số",
-    "problems": "bài tập"
+    "problems": "bài tập",
+    "search": "Tìm kiếm"
   },
   "donate": {
     "title": "Ủng Hộ Dự Án",
@@ -146,5 +194,42 @@
     "cancel_desc": "Giao dịch đã được hủy theo yêu cầu. Không có khoản tiền nào bị trừ khỏi tài khoản của bạn.",
     "cancel_status": "Đã Hủy",
     "button_retry": "Thử lại"
+  },
+  "coding": {
+    "contests_title": "Cuộc thi",
+    "contests_description": "Giải bài trong thời gian giới hạn. Thi đấu cùng các lập trình viên và theo dõi bảng xếp hạng trực tiếp.",
+    "profile_title": "Hồ sơ cá nhân",
+    "profile_description": "Quản lý thông tin cá nhân, tài khoản và mật khẩu.",
+    "hide_password": "Ẩn mật khẩu",
+    "show_password": "Hiện mật khẩu",
+    "payment_title": "Ủng hộ CodeLearning",
+    "payment_description": "Chọn mức đóng góp để duy trì hoạt động của nền tảng.",
+    "payment_error": "Không thể tạo liên kết thanh toán. Vui lòng thử lại.",
+    "payment_total": "Khoản đóng góp",
+    "payment_continue": "Tiếp tục thanh toán",
+    "payment_redirect": "Bạn sẽ chuyển đến PayOS để hoàn tất thanh toán an toàn.",
+    "payment_received": "Cảm ơn bạn đã ủng hộ.",
+    "payment_verifying": "Xác minh thanh toán",
+    "payment_checking": "Đang kiểm tra…",
+    "back_problems": "Về danh sách bài tập",
+    "programming_language": "Ngôn ngữ lập trình",
+    "loading_account": "Đang tải tài khoản"
+  },
+  "standings": {
+    "table": "Bảng xếp hạng cuộc thi",
+    "rank": "Hạng",
+    "participant": "Người tham gia",
+    "solved": "Đã giải",
+    "penalty": "Phạt",
+    "summary": "#{{rank}} · {{solved}} đã giải · {{penalty}}p",
+    "accepted": "Chính xác",
+    "unsolved": "Chưa giải đúng",
+    "unattempted": "Chưa nộp bài",
+    "status": "Trạng thái",
+    "solve_time": "Thời gian giải",
+    "minutes_one": "{{count}} phút",
+    "minutes_other": "{{count}} phút",
+    "failed_attempts": "Số lần sai",
+    "close": "Đóng"
   }
 }
