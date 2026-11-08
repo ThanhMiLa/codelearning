@@ -1,7 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, Clock, Trophy, Lock, Unlock, Users, ChevronRight, RefreshCw, Eye, EyeOff, ShieldAlert } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import api from '../../api/axios';
 import type { ApiResponse, PageResponse, ContestListResponse } from '../../types';
 
@@ -52,10 +52,10 @@ const ContestCountdown: React.FC<ContestCountdownProps> = ({ startTime, onTimerE
 
   return (
     <div className="flex flex-col items-stretch md:items-end gap-1">
-      <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-500/80">Starts In</span>
-      <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-300 text-xs font-bold shadow-sm animate-pulse">
+      <span className="text-[10px] font-medium text-code-warning">Starts In</span>
+      <div className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-sm bg-code-warning-surface text-code-warning border-code-warning-border text-xs font-medium animate-pulse border">
         <Clock className="h-3.5 w-3.5" />
-        <span className="font-mono tracking-wider">
+        <span className="font-coding ">
           {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}
         </span>
       </div>
@@ -64,11 +64,12 @@ const ContestCountdown: React.FC<ContestCountdownProps> = ({ startTime, onTimerE
 };
 
 const ContestList: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [contests, setContests] = useState<ContestListResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<string>('ALL'); // ALL, RUNNING, UPCOMING, ENDED
-  
+
   // Pagination
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -136,27 +137,27 @@ const ContestList: React.FC = () => {
     switch (status) {
       case 'RUNNING':
         return (
-          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-extrabold animate-pulse">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-sm bg-code-success-surface text-code-success border-code-success-border text-xs font-medium animate-pulse border">
+            <span className="w-1.5 h-1.5 rounded-sm bg-code-success"></span>
             <span>Running</span>
           </span>
         );
       case 'UPCOMING':
         return (
-          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 text-xs font-extrabold">
-            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-sm bg-code-accent-surface text-code-accent border-code-accent text-xs font-medium border">
+            <span className="w-1.5 h-1.5 rounded-sm bg-code-accent"></span>
             <span>Upcoming</span>
           </span>
         );
       case 'ENDED':
         return (
-          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-500/10 text-slate-500 dark:text-slate-400 border border-slate-500/20 text-xs font-extrabold">
+          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-sm bg-code-panel text-code-muted border-code-border text-xs font-medium border">
             <span>Ended</span>
           </span>
         );
       case 'CANCELLED':
         return (
-          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-rose-500/10 text-rose-500 border border-rose-500/20 text-xs font-extrabold">
+          <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-sm bg-code-error-surface text-code-error border-code-error-border text-xs font-medium border">
             <span>Cancelled</span>
           </span>
         );
@@ -237,35 +238,27 @@ const ContestList: React.FC = () => {
   };
 
   return (
-    <div className="mx-auto max-w-[1600px] w-full px-4 py-8 sm:px-6 lg:px-8 text-left min-h-screen">
-      
-      {/* Hero Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 text-white p-8 md:p-12 shadow-xl mb-8 border border-indigo-900/20">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-        <div className="relative z-10 space-y-4 max-w-2xl">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider">
-            <Trophy className="h-3.5 w-3.5" />
-            <span>Programming Tournaments</span>
-          </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-            Online Programming Contests
-          </h1>
-          <p className="text-sm md:text-base text-slate-300 leading-relaxed font-normal">
-            Join to test your skills and improve algorithms. Compete directly on the leaderboard with hundreds of other programmers.
-          </p>
+    <div className="coding-page">
+
+      <header className="coding-page-header">
+        <div>
+          <h1>{t('coding.contests_title')}</h1>
+          <p>{t('coding.contests_description')}</p>
         </div>
-      </div>
+        <Trophy size={28} className="coding-page-symbol" aria-hidden="true" />
+      </header>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200 dark:border-slate-800 mb-6 shrink-0">
+      <div className="coding-tabs flex border-b border-code-border mb-6 shrink-0">
         {['ALL', 'RUNNING', 'UPCOMING', 'ENDED'].map((tab) => (
           <button
             key={tab}
+            aria-pressed={activeTab === tab}
             onClick={() => setActiveTab(tab)}
-            className={`py-3.5 px-6 text-xs font-extrabold tracking-wider uppercase border-b-2 transition-all ${
+            className={`py-3.5 px-6 text-xs font-medium   border-b-2 transition-all ${
               activeTab === tab
-                ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 font-black'
-                : 'border-transparent text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
+                ? 'text-code-accent border-code-accent font-medium border'
+                : 'border-transparent text-code-muted hover:text-code-text'
             }`}
           >
             {tab === 'ALL' ? 'All' : tab === 'RUNNING' ? 'Running' : tab === 'UPCOMING' ? 'Upcoming' : 'Ended'}
@@ -277,38 +270,38 @@ const ContestList: React.FC = () => {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="animate-pulse bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-300 dark:border-slate-800 space-y-3">
-              <div className="h-6 bg-slate-200 dark:bg-slate-800 rounded w-1/3"></div>
-              <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded w-1/4"></div>
+            <div key={i} className="animate-pulse bg-code-panel rounded-sm p-6 border-code-border space-y-3 border">
+              <div className="h-6 bg-code-elevated rounded-sm w-1/3"></div>
+              <div className="h-4 bg-code-elevated rounded-sm w-1/4"></div>
             </div>
           ))}
         </div>
       ) : filteredContests.length === 0 ? (
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-300 dark:border-slate-800 p-16 text-center text-slate-500 dark:text-slate-400">
+        <div className="bg-code-panel rounded-sm border-code-border p-16 text-center text-code-muted border">
           <Calendar className="h-12 w-12 mx-auto opacity-30 mb-3" />
-          <p className="font-bold text-sm">No contests found</p>
-          <p className="text-xs text-slate-400 mt-1">There are currently no contests in this status.</p>
+          <p className="font-medium text-sm">No contests found</p>
+          <p className="text-xs text-code-muted mt-1">There are currently no contests in this status.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {filteredContests.map((contest) => (
             <div
               key={contest.id}
-              className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-300 dark:border-slate-800 p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
+              className="bg-code-panel rounded-sm border-code-border p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition-all duration-200 hover:border-code-accent border"
             >
               {/* Contest info */}
               <div className="space-y-3 text-left flex-grow">
                 <div className="flex flex-wrap items-center gap-2">
                   {getStatusBadge(contest.status)}
-                  
+
                   {/* Public/Private Badge */}
                   {(contest.public ?? contest.isPublic) ? (
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold">
+                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-sm bg-code-elevated text-code-muted text-[10px] font-medium">
                       <Unlock className="h-3 w-3" />
                       <span>Public</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[10px] font-bold border border-amber-200">
+                    <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-sm bg-code-warning-surface text-code-warning text-[10px] font-medium border-code-warning-border border">
                       <Lock className="h-3 w-3" />
                       <span>Protected</span>
                     </span>
@@ -316,10 +309,10 @@ const ContestList: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <h3 className="text-base md:text-lg font-bold text-slate-950 dark:text-white leading-snug">
+                  <h3 className="text-base md:text-lg font-medium text-code-text leading-snug">
                     {contest.title}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-500 dark:text-slate-400 font-semibold">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-code-muted font-semibold">
                     <span className="flex items-center space-x-1">
                       <Calendar className="h-4 w-4" />
                       <span>Start: {formatDate(contest.startTime)}</span>
@@ -335,36 +328,28 @@ const ContestList: React.FC = () => {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-code-muted">
                   Organized by: <span className="font-semibold">{contest.createdByTeacherName || 'Organizer'}</span>
                 </p>
               </div>
 
               {/* Action Button / Countdown */}
               <div className="shrink-0 w-full md:w-auto flex flex-col items-stretch md:items-end justify-center">
-                <AnimatePresence mode="wait">
+
                   {contest.status === 'UPCOMING' ? (
-                    <motion.div
+                    <div
                       key={`countdown-${contest.id}`}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
                     >
                       <ContestCountdown startTime={contest.startTime} onTimerEnd={fetchContests} />
-                    </motion.div>
+                    </div>
                   ) : (
-                    <motion.button
+                    <button
                       key={`btn-${contest.id}`}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
                       onClick={() => handleContestAction(contest)}
-                      className={`w-full md:w-auto inline-flex items-center justify-center space-x-1.5 px-6 py-3 rounded-xl text-xs font-bold transition-all active:scale-95 shadow-md shadow-indigo-600/5 ${
+                      className={`w-full md:w-auto inline-flex items-center justify-center space-x-1.5 px-6 py-3 rounded-sm text-xs font-medium transition-all ${
                         contest.status === 'ENDED' || contest.status === 'CANCELLED'
-                          ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200'
-                          : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/10 hover:shadow-indigo-600/20'
+                          ? 'bg-code-elevated hover:bg-code-panel text-code-text'
+                          : 'bg-code-accent hover:bg-code-accent-hover text-code-bg '
                       }`}
                     >
                       {contest.status === 'CANCELLED' ? (
@@ -389,9 +374,9 @@ const ContestList: React.FC = () => {
                         </>
                       )}
                       <ChevronRight className="h-3.5 w-3.5" />
-                    </motion.button>
+                    </button>
                   )}
-                </AnimatePresence>
+
               </div>
           </div>
         ))}
@@ -400,22 +385,22 @@ const ContestList: React.FC = () => {
 
       {/* Pagination Footer */}
       {totalPages > 1 && (
-        <div className="flex items-center justify-between border-t border-slate-300 dark:border-slate-800 pt-6 mt-6">
-          <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold">
+        <div className="flex items-center justify-between border-t border-code-border pt-6 mt-6">
+          <div className="text-xs text-code-muted font-semibold">
             Showing {contests.length} of {totalElements} contests (Page {page + 1} of {totalPages})
           </div>
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setPage(prev => Math.max(prev - 1, 0))}
               disabled={page === 0}
-              className="px-3.5 py-1.5 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 disabled:opacity-40 transition-colors text-xs font-bold dark:text-white"
+              className="px-3.5 py-1.5 border-code-border rounded-sm hover:bg-code-elevated/80 disabled:opacity-40 transition-colors text-xs font-medium text-code-text border"
             >
               Previous
             </button>
             <button
               onClick={() => setPage(prev => Math.min(prev + 1, totalPages - 1))}
               disabled={page === totalPages - 1}
-              className="px-3.5 py-1.5 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 disabled:opacity-40 transition-colors text-xs font-bold dark:text-white"
+              className="px-3.5 py-1.5 border-code-border rounded-sm hover:bg-code-elevated/80 disabled:opacity-40 transition-colors text-xs font-medium text-code-text border"
             >
               Next
             </button>
@@ -425,34 +410,35 @@ const ContestList: React.FC = () => {
 
       {/* Password Modal */}
       {isPasswordModalOpen && selectedContest && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-300 dark:border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-            
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-code-panel/80 backdrop-blur-sm">
+          <div role="dialog" aria-modal="true" aria-labelledby="contest-password-title"
+          className="w-full max-w-md bg-code-panel rounded-sm border-code-border p-6 md:p-8 space-y-6 relative  border">
+
             {/* Header info */}
             <div className="text-center space-y-2">
-              <div className="mx-auto w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center border border-amber-300">
+              <div className="mx-auto w-12 h-12 rounded-sm bg-code-warning-surface text-code-warning flex items-center justify-center border-code-warning-border border">
                 <Lock className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-bold text-slate-950 dark:text-white">
+              <h3 id="contest-password-title" className="text-lg font-medium text-code-text">
                 Password Required
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 px-4 leading-relaxed font-semibold">
+              <p className="text-xs text-code-muted px-4 leading-relaxed font-semibold">
                 "{selectedContest.title}" is password-protected. Please enter the password to join.
               </p>
             </div>
- 
+
             {/* Error dialog */}
             {registerError && (
-              <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-2xl text-rose-600 dark:text-rose-400 text-xs font-bold flex items-center space-x-2">
+              <div className="p-3 bg-code-error-surface border-code-error-border rounded-sm text-code-error text-xs font-medium flex items-center space-x-2 border">
                 <ShieldAlert className="h-4 w-4 shrink-0" />
                 <span>{registerError}</span>
               </div>
             )}
- 
+
             {/* Form */}
             <form onSubmit={handleModalSubmit} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <label className="text-[10px] font-medium text-code-muted block">
                   Contest Password:
                 </label>
                 <div className="relative">
@@ -463,32 +449,32 @@ const ContestList: React.FC = () => {
                     placeholder="Enter password..."
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-4 pr-10 py-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/40 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:text-white"
+                    className="w-full pl-4 pr-10 py-2.5 rounded-sm border-code-border bg-code-bg/80 text-sm focus:outline-none focus:ring-2 focus:ring-code-accent focus:border-code-accent transition-all text-code-text border"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors focus:outline-none"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-code-muted hover:text-code-text transition-colors focus:outline-none"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
               </div>
- 
+
               {/* Action buttons */}
               <div className="grid grid-cols-2 gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setIsPasswordModalOpen(false)}
                   disabled={registering}
-                  className="px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                  className="px-4 py-2.5 border-code-border rounded-sm text-xs font-medium text-code-muted hover:bg-code-elevated/80 transition-colors border"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={registering || !password.trim()}
-                  className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/15 hover:shadow-indigo-600/25 transition-all flex items-center justify-center space-x-1.5"
+                  className="px-4 py-2.5 bg-code-accent hover:bg-code-accent-hover disabled:opacity-50 text-code-bg rounded-sm text-xs font-medium transition-all flex items-center justify-center space-x-1.5"
                 >
                   {registering ? (
                     <RefreshCw className="h-4.5 w-4.5 animate-spin" />
@@ -498,7 +484,7 @@ const ContestList: React.FC = () => {
                 </button>
               </div>
             </form>
- 
+
           </div>
         </div>
       )}

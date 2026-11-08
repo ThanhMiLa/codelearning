@@ -1,0 +1,271 @@
+.coding-standings {
+  width: 100%;
+  min-width: 0;
+  container: standings / inline-size;
+}
+
+.coding-ranking-stats {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+}
+
+.coding-ranking-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.coding-ranking-table thead {
+  background: var(--coding-bg);
+  color: var(--coding-muted);
+}
+
+.coding-ranking-table tr {
+  border-bottom: 1px solid var(--coding-border);
+}
+
+.coding-ranking-table tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.coding-ranking-table tbody tr:hover {
+  background: var(--coding-elevated);
+}
+
+.coding-ranking-table :is(th, td) {
+  min-width: 0;
+  padding: 8px 6px;
+  vertical-align: middle;
+  font-weight: 400;
+}
+
+.coding-ranking-table tbody :is(th, td) {
+  height: 80px;
+}
+
+.coding-ranking-table .standing-rank {
+  width: 5%;
+  text-align: center;
+}
+
+.coding-ranking-table .standing-participant {
+  width: 11%;
+  text-align: left;
+}
+
+.coding-ranking-table .standing-solved {
+  width: 6%;
+  text-align: center;
+}
+
+.coding-ranking-table .standing-penalty {
+  width: 7%;
+  text-align: center;
+}
+
+.standing-rank-value {
+  display: flex;
+  justify-content: center;
+  color: var(--coding-muted);
+}
+
+.standing-rank-1,
+.standing-rank-2,
+.standing-rank-3 {
+  font-weight: 700;
+}
+
+.standing-rank-1 { color: #eab308; }
+.standing-rank-2 { color: #e2e8f0; }
+.standing-rank-3 { color: #cd7f32; }
+
+.standing-participant-name {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.standing-compact-summary {
+  display: none;
+}
+
+.coding-ranking-table .standing-problem {
+  padding-inline: 3px;
+  text-align: center;
+}
+
+.standing-cell-frame {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  container: ranking-cell / inline-size;
+}
+
+.standing-problem-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 36px;
+  height: 32px;
+  margin-inline: auto;
+  border: 1px solid var(--coding-border);
+  border-radius: 3px;
+  background: var(--coding-elevated);
+  color: var(--coding-text);
+  font-size: 11px;
+}
+
+.standing-result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 88px;
+  height: 56px;
+  padding: 0;
+  margin-inline: auto;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--coding-muted);
+}
+
+.standing-result:hover {
+  border-color: currentColor;
+}
+
+.standing-result:focus-visible {
+  outline-offset: -2px;
+}
+
+.standing-result-accepted {
+  background: var(--color-code-success-surface);
+  border-color: var(--color-code-success-border);
+  color: var(--color-code-success);
+}
+
+.standing-result-failed {
+  background: var(--color-code-error-surface);
+  border-color: var(--color-code-error-border);
+  color: var(--color-code-error);
+}
+
+.standing-result-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.standing-attempts {
+  font-size: 10px;
+}
+
+.standing-result-symbol {
+  display: none;
+}
+
+.standing-result-dialog {
+  width: min(420px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  padding: 24px;
+  overflow-y: auto;
+  border: 1px solid var(--coding-border);
+  border-radius: 4px;
+  background: var(--coding-panel);
+  color: var(--coding-text);
+}
+
+.standing-result-dialog::backdrop {
+  background: #000b;
+}
+
+.standing-result-dialog h2 {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.standing-result-dialog > p {
+  margin-top: 8px;
+  color: var(--coding-muted);
+  overflow-wrap: anywhere;
+}
+
+.standing-result-dialog dl {
+  margin-block: 24px;
+}
+
+.standing-result-dialog dl > div {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--coding-border);
+  font-size: 12px;
+}
+
+.standing-result-dialog dt {
+  color: var(--coding-muted);
+}
+
+@container standings (max-width: 800px) {
+  .coding-ranking-table .standing-summary-column {
+    display: none;
+  }
+  .coding-ranking-table .standing-participant {
+    width: 15%;
+    padding-inline: 6px;
+  }
+  .coding-ranking-table .standing-problem {
+    padding-inline: 1px;
+  }
+  .standing-participant-name {
+    font-size: 11px;
+  }
+  .standing-compact-summary {
+    display: block;
+    margin-top: 6px;
+    color: var(--coding-muted);
+    font-size: 9px;
+    line-height: 1.4;
+    max-height: 2.8em;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+}
+
+@container ranking-cell (max-width: 34px) {
+  .standing-result-detail {
+    display: none;
+  }
+  .standing-result-symbol {
+    display: block;
+    font-size: min(12px, 65cqw);
+  }
+  .standing-result {
+    border-inline: 0;
+    border-radius: 1px;
+  }
+  .standing-problem-label {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    font-size: min(11px, 60cqw);
+  }
+}
+
+@media (max-width: 760px) {
+  .standing-card-header {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px;
+  }
+}
