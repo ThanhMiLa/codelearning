@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.server.resource.web.BearerTokenResolv
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -34,6 +35,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SecurityConfig {
+
+    static final String[] AUTH_ENTRY_ENDPOINTS = {"/auth/login", "/auth/register", "/auth/refresh", "/auth/google"};
 
     final CustomJwtDecoder customJwtDecoder;
     final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -54,7 +57,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // 2. Các API xác thực (Auth)
-                        .requestMatchers("/auth/login", "/auth/register", "/auth/refresh", "/auth/google").permitAll()
+                        .requestMatchers(AUTH_ENTRY_ENDPOINTS).permitAll()
 
                         // 3. Các API Public để xem dữ liệu (Giới hạn HTTP GET)
                         .requestMatchers(HttpMethod.GET, "/courses/**", "/lessons/{lessonId}", "/contests", "/contests/*/leaderboard").permitAll()
@@ -88,7 +91,15 @@ public class SecurityConfig {
     @Bean
     BearerTokenResolver bearerTokenResolver(){
         DefaultBearerTokenResolver defaultResolver = new DefaultBearerTokenResolver();
+        List<PathPatternRequestMatcher> authEntryMatchers = Arrays.stream(AUTH_ENTRY_ENDPOINTS)
+                .map(PathPatternRequestMatcher.withDefaults()::matcher)
+                .toList();
         return request -> {
+            // These endpoints authenticate credentials or a refresh token themselves.
+            if (authEntryMatchers.stream().anyMatch(matcher -> matcher.matches(request))) {
+                return null;
+            }
+
             String token = defaultResolver.resolve(request);
 
             if (token != null && !token.isBlank()) {

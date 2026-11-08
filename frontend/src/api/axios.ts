@@ -73,6 +73,13 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
+    // Authentication failures must reach the form without a refresh attempt.
+    const requestPath = `/${originalRequest.url?.split('?')[0] ?? ''}`;
+    if (['/auth/login', '/auth/register', '/auth/google', '/auth/refresh']
+      .some((path) => requestPath.endsWith(path))) {
+      return Promise.reject(error);
+    }
+
     // Handle 401 Unauthorized
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
