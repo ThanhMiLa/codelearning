@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { Lock, User, Mail, Phone, Eye, EyeOff, Loader, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getErrorMessage } from '../../utils/errorUtils';
@@ -10,17 +9,17 @@ const Register: React.FC = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  
+
   const [displayName, setDisplayName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const [error, setError] = useState<string | null>(null);
   const [isLoadingState, setIsLoadingState] = useState(false);
   const [validationErrors, setValidationErrors] = useState<{
@@ -87,42 +86,37 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
-      <motion.div 
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="w-full max-w-lg space-y-8 p-8 sm:p-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl"
+    <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-code-bg transition-colors duration-200">
+      <div
+        className="w-full max-w-lg space-y-8 p-8 sm:p-10 rounded-sm bg-code-panel border-code-border border "
       >
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          <h2 className="text-3xl font-medium tracking-tight text-code-text">
             {t('register.title')}
           </h2>
-          <p className="mt-2.5 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-2.5 text-sm text-code-muted">
             {t('register.subtitle')}
           </p>
         </div>
 
         {error && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-start space-x-2.5 p-4 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-100/50 dark:border-red-900/30 text-sm text-red-700 dark:text-red-400"
+          <div
+            className="flex items-start space-x-2.5 p-4 rounded-sm bg-code-error-surface border-code-error-border text-sm text-code-error border"
           >
             <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
             <span>{error}</span>
-          </motion.div>
+          </div>
         )}
 
         <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Display Name */}
             <div>
-              <label htmlFor="displayName" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+              <label htmlFor="displayName" className="block text-xs font-semibold text-code-muted mb-1.5">
                 {t('register.displayName_label')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-code-muted">
                   <User className="h-4.5 w-4.5" />
                 </div>
                 <input
@@ -133,24 +127,24 @@ const Register: React.FC = () => {
                     setDisplayName(e.target.value);
                     if (validationErrors.displayName) setValidationErrors(prev => ({ ...prev, displayName: undefined }));
                   }}
-                  className={`block w-full pl-11 pr-4 py-3 rounded-xl border bg-slate-100/70 dark:bg-slate-950/40 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:border-slate-800 dark:focus:ring-indigo-500/10 transition-all ${
-                    validationErrors.displayName ? 'border-red-300 focus:border-red-500' : 'border-slate-200 dark:border-slate-800'
+                  className={`block w-full pl-11 pr-4 py-3 rounded-sm bg-code-bg/80 text-sm placeholder-code-muted focus:outline-none focus:ring-2 focus:border-code-accent border-code-border focus:ring-code-accent transition-all border ${
+                    validationErrors.displayName ? 'border-code-error-border focus:border-code-error-border border' : 'border-code-border border'
                   }`}
                   placeholder={t('placeholders.displayName')}
                 />
               </div>
               {validationErrors.displayName && (
-                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 font-medium">{validationErrors.displayName}</p>
+                <p className="mt-1.5 text-xs text-code-error font-medium">{validationErrors.displayName}</p>
               )}
             </div>
 
             {/* Username */}
             <div>
-              <label htmlFor="username" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+              <label htmlFor="username" className="block text-xs font-semibold text-code-muted mb-1.5">
                 {t('login.username_label')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-code-muted">
                   <User className="h-4.5 w-4.5" />
                 </div>
                 <input
@@ -161,24 +155,24 @@ const Register: React.FC = () => {
                     setUsername(e.target.value);
                     if (validationErrors.username) setValidationErrors(prev => ({ ...prev, username: undefined }));
                   }}
-                  className={`block w-full pl-11 pr-4 py-3 rounded-xl border bg-slate-100/70 dark:bg-slate-950/40 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:border-slate-800 dark:focus:ring-indigo-500/10 transition-all ${
-                    validationErrors.username ? 'border-red-300 focus:border-red-500' : 'border-slate-200 dark:border-slate-800'
+                  className={`block w-full pl-11 pr-4 py-3 rounded-sm bg-code-bg/80 text-sm placeholder-code-muted focus:outline-none focus:ring-2 focus:border-code-accent border-code-border focus:ring-code-accent transition-all border ${
+                    validationErrors.username ? 'border-code-error-border focus:border-code-error-border border' : 'border-code-border border'
                   }`}
                   placeholder={t('placeholders.username')}
                 />
               </div>
               {validationErrors.username && (
-                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 font-medium">{validationErrors.username}</p>
+                <p className="mt-1.5 text-xs text-code-error font-medium">{validationErrors.username}</p>
               )}
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+              <label htmlFor="email" className="block text-xs font-semibold text-code-muted mb-1.5">
                 {t('register.email_label')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-code-muted">
                   <Mail className="h-4.5 w-4.5" />
                 </div>
                 <input
@@ -189,24 +183,24 @@ const Register: React.FC = () => {
                     setEmail(e.target.value);
                     if (validationErrors.email) setValidationErrors(prev => ({ ...prev, email: undefined }));
                   }}
-                  className={`block w-full pl-11 pr-4 py-3 rounded-xl border bg-slate-100/70 dark:bg-slate-950/40 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:border-slate-800 dark:focus:ring-indigo-500/10 transition-all ${
-                    validationErrors.email ? 'border-red-300 focus:border-red-500' : 'border-slate-200 dark:border-slate-800'
+                  className={`block w-full pl-11 pr-4 py-3 rounded-sm bg-code-bg/80 text-sm placeholder-code-muted focus:outline-none focus:ring-2 focus:border-code-accent border-code-border focus:ring-code-accent transition-all border ${
+                    validationErrors.email ? 'border-code-error-border focus:border-code-error-border border' : 'border-code-border border'
                   }`}
                   placeholder={t('placeholders.email')}
                 />
               </div>
               {validationErrors.email && (
-                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 font-medium">{validationErrors.email}</p>
+                <p className="mt-1.5 text-xs text-code-error font-medium">{validationErrors.email}</p>
               )}
             </div>
 
             {/* Phone Number */}
             <div>
-              <label htmlFor="phoneNumber" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
-                {t('register.phone_label')} <span className="text-slate-400 dark:text-slate-500 font-normal">({t('register.optional')})</span>
+              <label htmlFor="phoneNumber" className="block text-xs font-semibold text-code-muted mb-1.5">
+                {t('register.phone_label')} <span className="text-code-muted font-normal">({t('register.optional')})</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-code-muted">
                   <Phone className="h-4.5 w-4.5" />
                 </div>
                 <input
@@ -217,24 +211,24 @@ const Register: React.FC = () => {
                     setPhoneNumber(e.target.value);
                     if (validationErrors.phoneNumber) setValidationErrors(prev => ({ ...prev, phoneNumber: undefined }));
                   }}
-                  className={`block w-full pl-11 pr-4 py-3 rounded-xl border bg-slate-100/70 dark:bg-slate-950/40 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:border-slate-800 dark:focus:ring-indigo-500/10 transition-all ${
-                    validationErrors.phoneNumber ? 'border-red-300 focus:border-red-500' : 'border-slate-200 dark:border-slate-800'
+                  className={`block w-full pl-11 pr-4 py-3 rounded-sm bg-code-bg/80 text-sm placeholder-code-muted focus:outline-none focus:ring-2 focus:border-code-accent border-code-border focus:ring-code-accent transition-all border ${
+                    validationErrors.phoneNumber ? 'border-code-error-border focus:border-code-error-border border' : 'border-code-border border'
                   }`}
                   placeholder={t('placeholders.phone')}
                 />
               </div>
               {validationErrors.phoneNumber && (
-                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 font-medium">{validationErrors.phoneNumber}</p>
+                <p className="mt-1.5 text-xs text-code-error font-medium">{validationErrors.phoneNumber}</p>
               )}
             </div>
 
             {/* Password */}
             <div>
-              <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+              <label htmlFor="password" className="block text-xs font-semibold text-code-muted mb-1.5">
                 {t('login.password_label')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-code-muted">
                   <Lock className="h-4.5 w-4.5" />
                 </div>
                 <input
@@ -245,31 +239,31 @@ const Register: React.FC = () => {
                     setPassword(e.target.value);
                     if (validationErrors.password) setValidationErrors(prev => ({ ...prev, password: undefined }));
                   }}
-                  className={`block w-full pl-11 pr-11 py-3 rounded-xl border bg-slate-100/70 dark:bg-slate-950/40 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:border-slate-800 dark:focus:ring-indigo-500/10 transition-all ${
-                    validationErrors.password ? 'border-red-300 focus:border-red-500' : 'border-slate-200 dark:border-slate-800'
+                  className={`block w-full pl-11 pr-11 py-3 rounded-sm bg-code-bg/80 text-sm placeholder-code-muted focus:outline-none focus:ring-2 focus:border-code-accent border-code-border focus:ring-code-accent transition-all border ${
+                    validationErrors.password ? 'border-code-error-border focus:border-code-error-border border' : 'border-code-border border'
                   }`}
                   placeholder={t('placeholders.password_placeholder')}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-code-muted hover:text-code-muted transition-colors"
                 >
                   {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
                 </button>
               </div>
               {validationErrors.password && (
-                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 font-medium">{validationErrors.password}</p>
+                <p className="mt-1.5 text-xs text-code-error font-medium">{validationErrors.password}</p>
               )}
             </div>
 
             {/* Confirm Password */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1.5">
+              <label htmlFor="confirmPassword" className="block text-xs font-semibold text-code-muted mb-1.5">
                 {t('register.confirmPassword_label')}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-code-muted">
                   <Lock className="h-4.5 w-4.5" />
                 </div>
                 <input
@@ -280,21 +274,21 @@ const Register: React.FC = () => {
                     setConfirmPassword(e.target.value);
                     if (validationErrors.confirmPassword) setValidationErrors(prev => ({ ...prev, confirmPassword: undefined }));
                   }}
-                  className={`block w-full pl-11 pr-11 py-3 rounded-xl border bg-slate-100/70 dark:bg-slate-950/40 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 dark:border-slate-800 dark:focus:ring-indigo-500/10 transition-all ${
-                    validationErrors.confirmPassword ? 'border-red-300 focus:border-red-500' : 'border-slate-200 dark:border-slate-800'
+                  className={`block w-full pl-11 pr-11 py-3 rounded-sm bg-code-bg/80 text-sm placeholder-code-muted focus:outline-none focus:ring-2 focus:border-code-accent border-code-border focus:ring-code-accent transition-all border ${
+                    validationErrors.confirmPassword ? 'border-code-error-border focus:border-code-error-border border' : 'border-code-border border'
                   }`}
                   placeholder={t('placeholders.confirmPassword')}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-code-muted hover:text-code-muted transition-colors"
                 >
                   {showConfirmPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
                 </button>
               </div>
               {validationErrors.confirmPassword && (
-                <p className="mt-1.5 text-xs text-red-600 dark:text-red-400 font-medium">{validationErrors.confirmPassword}</p>
+                <p className="mt-1.5 text-xs text-code-error font-medium">{validationErrors.confirmPassword}</p>
               )}
             </div>
           </div>
@@ -303,7 +297,7 @@ const Register: React.FC = () => {
             <button
               type="submit"
               disabled={isLoadingState}
-              className="relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-500/10 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 transition-all disabled:opacity-50 active:scale-98"
+              className="relative w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-semibold rounded-sm text-code-bg bg-code-accent hover:bg-code-accent-hover focus:outline-none focus:ring-2 focus:ring-code-accent transition-all disabled:opacity-50 "
             >
               {isLoadingState ? (
                 <Loader className="h-5 w-5 animate-spin" />
@@ -314,13 +308,13 @@ const Register: React.FC = () => {
           </div>
         </form>
 
-        <div className="text-center pt-2 text-sm text-slate-500 dark:text-slate-400">
+        <div className="text-center pt-2 text-sm text-code-muted">
           {t('register.already_account')}{' '}
-          <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 hover:underline">
+          <Link to="/login" className="font-semibold hover:text-code-accent text-code-accent hover:underline">
             {t('login.login_now')}
           </Link>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
