@@ -29,6 +29,7 @@ import SuccessPage from './pages/payment/SuccessPage';
 import CancelPage from './pages/payment/CancelPage';
 import DepositPage from './pages/payment/DepositPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import './pages/admin/AdminUI.css';
 import CourseCreator from './pages/admin/CourseCreator';
 import QuizManager from './pages/admin/QuizManager';
 import TestcaseGenerator from './pages/admin/TestcaseGenerator';
@@ -158,7 +159,7 @@ const App: React.FC = () => {
                   path="admin/dashboard"
                   element={
                     <RoleRoute allowedRoles={['ADMIN', 'TEACHER']}>
-                      <AdminDashboard />
+                      <div className="admin-ui"><AdminDashboard /></div>
                     </RoleRoute>
                   }
                 />
@@ -166,7 +167,7 @@ const App: React.FC = () => {
                   path="admin/courses/new"
                   element={
                     <RoleRoute allowedRoles={['ADMIN', 'TEACHER']}>
-                      <CourseCreator />
+                      <div className="admin-ui"><CourseCreator /></div>
                     </RoleRoute>
                   }
                 />
@@ -174,7 +175,7 @@ const App: React.FC = () => {
                   path="admin/quizzes/:lessonId"
                   element={
                     <RoleRoute allowedRoles={['ADMIN', 'TEACHER']}>
-                      <QuizManager />
+                      <div className="admin-ui"><QuizManager /></div>
                     </RoleRoute>
                   }
                 />
@@ -182,7 +183,7 @@ const App: React.FC = () => {
                   path="admin/problems/:problemId/testcases"
                   element={
                     <RoleRoute allowedRoles={['ADMIN']}>
-                      <TestcaseGenerator />
+                      <div className="admin-ui"><TestcaseGenerator /></div>
                     </RoleRoute>
                   }
                 />

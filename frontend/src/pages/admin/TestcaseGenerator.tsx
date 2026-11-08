@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Editor from '@monaco-editor/react';
 import { 
   ArrowLeft, 
@@ -12,6 +13,7 @@ import {
   Settings
 } from 'lucide-react';
 import api from '../../api/axios';
+import { codingEditorFontFamily, codingEditorTheme, configureCodingEditor } from '../../utils/codingEditorTheme';
 import { useWebSocket } from '../../context/WebSocketContext';
 import type { ApiResponse, OjProblemDetailResponse, OjTestcaseGenWsMessage } from '../../types';
 
@@ -20,35 +22,36 @@ const LANGUAGES = [
   { id: 54, name: 'C++ (GCC)', monacoName: 'cpp', extension: 'cpp', defaultGenerator: '#include <iostream>\n#include <cstdlib>\n#include <ctime>\nusing namespace std;\n\nint main() {\n    srand(time(0));\n    // Print out random input data\n    int a = rand() % 1000 + 1;\n    int b = rand() % 1000 + 1;\n    cout << a << " " << b << endl;\n    return 0;\n}', defaultSolution: '#include <iostream>\nusing namespace std;\n\nint main() {\n    // Read from stdin and print standard output\n    int a, b;\n    if (cin >> a >> b) {\n        cout << a + b << endl;\n    }\n    return 0;\n}' }
 ];
 
-const formatUserFriendlyErrorMessage = (rawMessage: string): string => {
-  if (!rawMessage) return 'Đã xảy ra lỗi không xác định trong quá trình sinh testcase.';
+const formatUserFriendlyErrorMessage = (rawMessage: string, t: (key: string) => string): string => {
+  if (!rawMessage) return t('coding.admin_testcase_unknown_error');
 
   let msg = rawMessage;
   let explanation = '';
 
   if (rawMessage.includes('NZEC') || rawMessage.includes('Non-Zero Exit Code') || rawMessage.includes('Runtime Error')) {
-    explanation = 'Lỗi thực thi (Runtime Error) - Mã nguồn bị dừng đột ngột (crash) khi đang chạy. Hãy kiểm tra các lỗi như: chia cho 0, truy cập phần tử ngoài phạm vi mảng, ép kiểu sai, hoặc đệ quy quá sâu.';
+    explanation = t('coding.admin_testcase_runtime_error');
   } else if (rawMessage.includes('Compile Error') || rawMessage.includes('Compilation Error') || rawMessage.toLowerCase().includes('compile error')) {
-    explanation = 'Lỗi biên dịch (Compile Error) - Mã nguồn không thể biên dịch thành công. Vui lòng kiểm tra lại cú pháp lập trình.';
+    explanation = t('coding.admin_testcase_compile_error');
   } else if (rawMessage.includes('Time Limit Exceeded') || rawMessage.includes('TLE')) {
-    explanation = 'Vượt quá giới hạn thời gian (Time Limit Exceeded) - Chương trình chạy quá lâu, có thể bị lặp vô hạn hoặc thuật toán chưa tối ưu.';
+    explanation = t('coding.admin_testcase_time_error');
   } else if (rawMessage.includes('Memory Limit Exceeded') || rawMessage.includes('MLE')) {
-    explanation = 'Vượt quá giới hạn bộ nhớ (Memory Limit Exceeded) - Chương trình tiêu thụ quá nhiều bộ nhớ cho phép.';
+    explanation = t('coding.admin_testcase_memory_error');
   }
 
   // Clean up technical labels in Vietnamese
   msg = msg
-    .replace(/Lỗi sinh Output:/g, 'Lỗi chạy Lời giải mẫu (Solution) trên Input vừa sinh:')
-    .replace(/Lỗi sinh Input:/g, 'Lỗi chạy chương trình Sinh dữ liệu (Generator):');
+    .replace(/Lỗi sinh Output:/g, t('coding.admin_testcase_solution_error'))
+    .replace(/Lỗi sinh Input:/g, t('coding.admin_testcase_generator_error'));
 
   if (explanation) {
-    return `${explanation}\n\n[Chi tiết lỗi từ hệ thống]:\n${msg}`;
+    return `${explanation}\n\n[${t('coding.admin_testcase_error_details')}]:\n${msg}`;
   }
 
   return msg;
 };
 
 const TestcaseGenerator: React.FC = () => {
+  const { t } = useTranslation();
   const { problemId } = useParams<{ problemId: string }>();
   const navigate = useNavigate();
   const { subscribe, isConnected } = useWebSocket();
@@ -75,19 +78,6 @@ const TestcaseGenerator: React.FC = () => {
   const [logs, setLogs] = useState<string[]>([]);
   const [genStatus, setGenStatus] = useState<string>('IDLE'); // IDLE, RUNNING, SUCCESS, FAILED
   const [progress, setProgress] = useState(0);
-
-  // Theme state for Monaco Editor
-  const [editorTheme, setEditorTheme] = useState<'vs-dark' | 'vs'>(() => 
-    document.documentElement.classList.contains('dark') ? 'vs-dark' : 'vs'
-  );
-
-  useEffect(() => {
-    const handleThemeChange = () => {
-      setEditorTheme(document.documentElement.classList.contains('dark') ? 'vs-dark' : 'vs');
-    };
-    window.addEventListener('theme-change', handleThemeChange);
-    return () => window.removeEventListener('theme-change', handleThemeChange);
-  }, []);
 
   const logsEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -159,7 +149,7 @@ const TestcaseGenerator: React.FC = () => {
           data.message.toLowerCase().includes('lỗi');
 
         const displayStatus = isSuccess ? 'SUCCESS' : (isFailure ? 'FAILED' : data.status);
-        const formattedMessage = isFailure ? formatUserFriendlyErrorMessage(data.message) : data.message;
+        const formattedMessage = isFailure ? formatUserFriendlyErrorMessage(data.message, t) : data.message;
 
         // Append log line
         setLogs(prev => [...prev, `[${displayStatus}] ${formattedMessage}`]);
@@ -192,7 +182,7 @@ const TestcaseGenerator: React.FC = () => {
         subscription.unsubscribe();
       }
     };
-  }, [problemIdNum, subscribe]);
+  }, [problemIdNum, subscribe, t]);
 
   const handleStartGeneration = async () => {
     if (!generatorCode.trim() || !solutionCode.trim() || isGenerating) return;
@@ -281,7 +271,7 @@ const TestcaseGenerator: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)] w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-left">
+    <div className="admin-testcase flex flex-col lg:flex-row h-[100dvh] w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-left">
       
       {/* LEFT COLUMN: Controls & WebSockets Logs console (40% width) */}
       <div className="w-full lg:w-2/5 flex flex-col h-1/2 lg:h-full border-r border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900 select-none shrink-0">
@@ -487,7 +477,8 @@ const TestcaseGenerator: React.FC = () => {
                 else setSolutionCode(val);
               }
             }}
-            theme={editorTheme}
+            beforeMount={configureCodingEditor}
+            theme={codingEditorTheme}
             loading={
               <div className="absolute inset-0 flex items-center justify-center bg-slate-950/80">
                 <RefreshCw className="h-6 w-6 animate-spin text-slate-500" />
@@ -495,7 +486,7 @@ const TestcaseGenerator: React.FC = () => {
             }
             options={{
               fontSize: 14,
-              fontFamily: 'Fira Code, Source Code Pro, Menlo, Monaco, Consolas, monospace',
+              fontFamily: codingEditorFontFamily,
               tabSize: 4,
               automaticLayout: true,
               minimap: { enabled: false },

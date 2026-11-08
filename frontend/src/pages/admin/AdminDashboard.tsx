@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
-  BookOpen, 
   Plus, 
   Edit, 
   Trash2, 
-  ArrowUp, 
-  ArrowDown, 
   Settings, 
   RefreshCw, 
-  FolderPlus, 
   FilePlus, 
   Code,
-  FolderOpen,
   ChevronRight,
   Loader2,
   ArrowLeft,
@@ -23,16 +19,15 @@ import {
   Users,
   CreditCard,
   Search,
-  ChevronDown
+  ChevronDown,
+  UserRound
 } from 'lucide-react';
 import { Reorder } from 'framer-motion';
 import api from '../../api/axios';
 import { getErrorMessage } from '../../utils/errorUtils';
+import { useAuth } from '../../context/AuthContext';
 import type { 
   ApiResponse, 
-  CourseListItemResponse, 
-  ChapterResponse, 
-  LessonSummaryResponse, 
   OjAdminProblemResponse,
   PageResponse,
   ContestListResponse,
@@ -43,7 +38,7 @@ import type {
   OjAdminSubmissionResponse
 } from '../../types';
 
-type DashboardTab = 'courses' | 'problems' | 'contests' | 'users' | 'payments' | 'submissions' | 'emails';
+type DashboardTab = 'problems' | 'contests' | 'users' | 'payments' | 'submissions' | 'emails';
 
 interface MultiSelectDropdownProps {
   options: { value: string | number; label: string }[];
@@ -111,14 +106,9 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({ options, sele
 };
 
 const AdminDashboard: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<DashboardTab>('courses');
-
-  // Courses states
-  const [courses, setCourses] = useState<CourseListItemResponse[]>([]);
-  const [loadingCourses, setLoadingCourses] = useState(true);
-  const [selectedCourseId, setSelectedCourseId] = useState<number | null>(null);
-  const [curriculum, setCurriculum] = useState<ChapterResponse[]>([]);
-  const [loadingCurriculum, setLoadingCurriculum] = useState(false);
+  const { t } = useTranslation();
+  const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState<DashboardTab>('problems');
 
   // Problems states
   const [problems, setProblems] = useState<OjAdminProblemResponse[]>([]);
@@ -203,25 +193,6 @@ const AdminDashboard: React.FC = () => {
     contestProblemsRef.current = contestProblems;
   }, [contestProblems]);
 
-  // Modal triggers
-  const [showChapterModal, setShowChapterModal] = useState(false);
-  const [editingChapter, setEditingChapter] = useState<ChapterResponse | null>(null);
-  const [chapterTitle, setChapterTitle] = useState('');
-
-  const [showLessonModal, setShowLessonModal] = useState(false);
-  const [editingLessonId, setEditingLessonId] = useState<number | null>(null);
-  const [selectedChapterId, setSelectedChapterId] = useState<number | null>(null);
-  // Lesson form
-  const [lessonTitle, setLessonTitle] = useState('');
-  const [lessonDesc, setLessonDesc] = useState('');
-  const [lessonDuration, setLessonDuration] = useState('15');
-  const [lessonTrial, setLessonTrial] = useState(false);
-  const [lessonStatus, setLessonStatus] = useState('PUBLISHED');
-  const [lessonTheory, setLessonTheory] = useState('');
-  const [lessonSampleCode, setLessonSampleCode] = useState('');
-  const [lessonVideoFile, setLessonVideoFile] = useState<File | null>(null);
-  const [uploadingLesson, setUploadingLesson] = useState(false);
-
   // Problem creation modal
   const [showProblemModal, setShowProblemModal] = useState(false);
   const [probTitle, setProbTitle] = useState('');
@@ -238,11 +209,6 @@ const AdminDashboard: React.FC = () => {
   const [probMemoryLimit, setProbMemoryLimit] = useState('262144');
   const [probScore] = useState('10');
   const [savingProblem, setSavingProblem] = useState(false);
-
-  // Fetch initial data
-  useEffect(() => {
-    fetchCourses();
-  }, []);
 
   useEffect(() => {
     fetchProblems(problemsPage);
@@ -629,20 +595,6 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  const fetchCourses = async () => {
-    setLoadingCourses(true);
-    try {
-      const res = await api.get<ApiResponse<any>>('/courses', {
-        params: { page: 0, size: 20 }
-      });
-      setCourses(res.data.result.content || []);
-    } catch (err) {
-      console.error('Failed to load courses:', err);
-    } finally {
-      setLoadingCourses(false);
-    }
-  };
-
   const fetchProblems = async (page: number = 0) => {
     setLoadingProblems(true);
     try {
@@ -671,206 +623,6 @@ const AdminDashboard: React.FC = () => {
     } catch (err) {
       console.error('Failed to update problem visibility:', err);
       alert(getErrorMessage(err));
-    }
-  };
-
-  // Fetch course curriculum outline
-  const fetchCurriculumOutline = async (courseId: number) => {
-    setLoadingCurriculum(true);
-    setSelectedCourseId(courseId);
-    try {
-      const res = await api.get<ApiResponse<ChapterResponse[]>>(`/courses/${courseId}/curriculum`);
-      setCurriculum(res.data.result || []);
-    } catch (err) {
-      console.error('Failed to fetch curriculum:', err);
-    } finally {
-      setLoadingCurriculum(false);
-    }
-  };
-
-  // CHAPTER CRUD
-  const handleOpenChapterModal = (chap: ChapterResponse | null = null) => {
-    if (chap) {
-      setEditingChapter(chap);
-      setChapterTitle(chap.title);
-    } else {
-      setEditingChapter(null);
-      setChapterTitle('');
-    }
-    setShowChapterModal(true);
-  };
-
-  const handleSaveChapter = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedCourseId || !chapterTitle.trim()) return;
-
-    try {
-      if (editingChapter) {
-        await api.put(`/chapters/${editingChapter.id}`, { title: chapterTitle });
-      } else {
-        await api.post(`/courses/${selectedCourseId}/chapters`, { title: chapterTitle });
-      }
-      setShowChapterModal(false);
-      fetchCurriculumOutline(selectedCourseId);
-    } catch (err) {
-      console.error('Failed to save chapter:', err);
-    }
-  };
-
-  const handleDeleteChapter = async (chapId: number) => {
-    if (!selectedCourseId) return;
-    if (window.confirm('Are you sure you want to delete this chapter and all lessons inside?')) {
-      try {
-        await api.delete(`/chapters/${chapId}`);
-        fetchCurriculumOutline(selectedCourseId);
-      } catch (err) {
-        console.error('Failed to delete chapter:', err);
-      }
-    }
-  };
-
-  const handleReorderChapters = async (direction: 'up' | 'down', index: number) => {
-    if (!selectedCourseId || curriculum.length <= 1) return;
-    const targetIdx = direction === 'up' ? index - 1 : index + 1;
-    if (targetIdx < 0 || targetIdx >= curriculum.length) return;
-
-    // Swap locally and map order index
-    const listCopy = [...curriculum];
-    const temp = listCopy[index];
-    listCopy[index] = listCopy[targetIdx];
-    listCopy[targetIdx] = temp;
-
-    const payload = listCopy.map((chap, idx) => ({
-      id: chap.id,
-      orderIndex: idx
-    }));
-
-    try {
-      await api.put(`/courses/${selectedCourseId}/chapters/reorder`, payload);
-      // Update local state immediately
-      setCurriculum(listCopy.map((c, i) => ({ ...c, orderIndex: i })));
-    } catch (err) {
-      console.error('Failed to reorder chapters:', err);
-      fetchCurriculumOutline(selectedCourseId);
-    }
-  };
-
-  // LESSON CRUD
-  const handleOpenLessonModal = async (chapId: number, lesson: LessonSummaryResponse | null = null) => {
-    setSelectedChapterId(chapId);
-    setLessonVideoFile(null);
-    if (lesson) {
-      setEditingLessonId(lesson.id);
-      setLessonTitle(lesson.title);
-      setLessonDuration(lesson.estimatedDurationMinutes.toString());
-      setLessonTrial(lesson.trial);
-      
-      // Fetch details to populate description, theory, code
-      try {
-        const res = await api.get<ApiResponse<any>>(`/lessons/${lesson.id}`);
-        const data = res.data.result;
-        setLessonDesc(data.description || '');
-        setLessonTheory(data.theoryContent || '');
-        setLessonSampleCode(data.sampleCode || '');
-      } catch (err) {
-        console.error('Failed to load lesson detail:', err);
-      }
-    } else {
-      setEditingLessonId(null);
-      setLessonTitle('');
-      setLessonDesc('');
-      setLessonDuration('15');
-      setLessonTrial(false);
-      setLessonStatus('PUBLISHED');
-      setLessonTheory('');
-      setLessonSampleCode('');
-    }
-    setShowLessonModal(true);
-  };
-
-  const handleSaveLesson = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!selectedCourseId || !selectedChapterId || !lessonTitle.trim()) return;
-
-    setUploadingLesson(true);
-    try {
-      const formData = new FormData();
-      formData.append('title', lessonTitle);
-      formData.append('description', lessonDesc);
-      formData.append('estimatedDurationMinutes', lessonDuration);
-      formData.append('trial', lessonTrial.toString());
-      formData.append('status', lessonStatus);
-      formData.append('theoryContent', lessonTheory);
-      formData.append('sampleCode', lessonSampleCode);
-
-      if (lessonVideoFile) {
-        formData.append('videoFile', lessonVideoFile);
-      }
-
-      if (editingLessonId) {
-        await api.put(`/lessons/${editingLessonId}`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-      } else {
-        await api.post(`/lessons/chapters/${selectedChapterId}/lessons`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-      }
-
-      setShowLessonModal(false);
-      fetchCurriculumOutline(selectedCourseId);
-    } catch (err) {
-      console.error('Failed to save lesson:', err);
-      alert(getErrorMessage(err));
-    } finally {
-      setUploadingLesson(false);
-    }
-  };
-
-  const handleDeleteLesson = async (lessonId: number) => {
-    if (!selectedCourseId) return;
-    if (window.confirm('Are you sure you want to delete this lesson from the curriculum?')) {
-      try {
-        await api.delete(`/lessons/${lessonId}`);
-        fetchCurriculumOutline(selectedCourseId);
-      } catch (err) {
-        console.error('Failed to delete lesson:', err);
-      }
-    }
-  };
-
-  const handleReorderLessons = async (chapId: number, direction: 'up' | 'down', index: number) => {
-    const chapter = curriculum.find(c => c.id === chapId);
-    if (!chapter || !chapter.lessonSummaryResponses || chapter.lessonSummaryResponses.length <= 1) return;
-
-    const targetIdx = direction === 'up' ? index - 1 : index + 1;
-    if (targetIdx < 0 || targetIdx >= chapter.lessonSummaryResponses.length) return;
-
-    const lessonsCopy = [...chapter.lessonSummaryResponses];
-    const temp = lessonsCopy[index];
-    lessonsCopy[index] = lessonsCopy[targetIdx];
-    lessonsCopy[targetIdx] = temp;
-
-    const payload = lessonsCopy.map((l, idx) => ({
-      id: l.id,
-      orderIndex: idx
-    }));
-
-    try {
-      await api.put(`/lessons/chapters/${chapId}/lessons/reorder`, payload);
-      // Update local state
-      setCurriculum(prev => prev.map(c => {
-        if (c.id === chapId) {
-          return {
-            ...c,
-            lessonSummaryResponses: lessonsCopy.map((l, i) => ({ ...l, orderIndex: i }))
-          };
-        }
-        return c;
-      }));
-    } catch (err) {
-      console.error('Failed to reorder lessons:', err);
-      if (selectedCourseId) fetchCurriculumOutline(selectedCourseId);
     }
   };
 
@@ -941,7 +693,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-900 overflow-hidden text-left">
+    <div className="admin-dashboard flex h-screen bg-slate-50 dark:bg-slate-900 overflow-hidden text-left">
       
       {/* Sidebar */}
       <div className="w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col shrink-0 overflow-hidden">
@@ -949,19 +701,8 @@ const AdminDashboard: React.FC = () => {
           <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 mt-2">Menu</p>
           
           <button
-            onClick={() => setActiveTab('courses')}
-            className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
-              activeTab === 'courses'
-                ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
-                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-slate-200'
-            }`}
-          >
-            <BookOpen className="h-5 w-5 shrink-0" />
-            <span className="truncate">Courses & Syllabus</span>
-          </button>
-          
-          <button
             onClick={() => setActiveTab('problems')}
+            aria-pressed={activeTab === 'problems'}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === 'problems'
                 ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -974,6 +715,7 @@ const AdminDashboard: React.FC = () => {
           
           <button
             onClick={() => setActiveTab('contests')}
+            aria-pressed={activeTab === 'contests'}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === 'contests'
                 ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -986,6 +728,7 @@ const AdminDashboard: React.FC = () => {
           
           <button
             onClick={() => setActiveTab('users')}
+            aria-pressed={activeTab === 'users'}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === 'users'
                 ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -998,6 +741,7 @@ const AdminDashboard: React.FC = () => {
           
           <button
             onClick={() => setActiveTab('payments')}
+            aria-pressed={activeTab === 'payments'}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === 'payments'
                 ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -1010,6 +754,7 @@ const AdminDashboard: React.FC = () => {
           
           <button
             onClick={() => setActiveTab('submissions')}
+            aria-pressed={activeTab === 'submissions'}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === 'submissions'
                 ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -1024,6 +769,7 @@ const AdminDashboard: React.FC = () => {
 
           <button
             onClick={() => setActiveTab('emails')}
+            aria-pressed={activeTab === 'emails'}
             className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
               activeTab === 'emails'
                 ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
@@ -1035,7 +781,15 @@ const AdminDashboard: React.FC = () => {
           </button>
         </div>
         
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
+        <div className="admin-sidebar-footer p-4 border-t border-slate-200 dark:border-slate-800 shrink-0">
+          <Link to="/profile" className="admin-sidebar-account">
+            {user?.avatarUrl ? (
+              <img src={user.avatarUrl} alt="" width={32} height={32} />
+            ) : (
+              <span className="admin-sidebar-avatar"><UserRound size={18} aria-hidden="true" /></span>
+            )}
+            <span>{user?.displayName}</span>
+          </Link>
           <Link to="/" className="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl text-sm font-bold transition-all">
             <ArrowLeft className="h-4 w-4 shrink-0" />
             <span>Back to Home</span>
@@ -1049,222 +803,6 @@ const AdminDashboard: React.FC = () => {
         <div className="flex-1 overflow-y-auto p-8 relative">
           <div className="mx-auto max-w-[1400px]">
 
-      {/* 1. COURSES TAB CONTENT */}
-      {activeTab === 'courses' && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          
-          {/* Left panel: Courses list (1/3 width) */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider flex items-center space-x-2">
-                <BookOpen className="h-5 w-5 text-indigo-500" />
-                <span>Courses List</span>
-              </h3>
-              <Link
-                to="/admin/courses/new"
-                className="inline-flex items-center space-x-1 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all active:scale-95 cursor-pointer"
-              >
-                <Plus className="h-3.5 w-3.5" />
-                <span>Create Course</span>
-              </Link>
-            </div>
-
-            {loadingCourses ? (
-              <div className="space-y-3">
-                {[1, 2].map(i => (
-                  <div key={i} className="animate-pulse bg-white dark:bg-slate-900 h-20 rounded-2xl border border-slate-300 dark:border-slate-800"></div>
-                ))}
-              </div>
-            ) : courses.length === 0 ? (
-              <p className="text-xs text-slate-500">No courses found.</p>
-            ) : (
-              <div className="space-y-3">
-                {courses.map((course) => (
-                  <button
-                    key={course.id}
-                    onClick={() => fetchCurriculumOutline(course.id)}
-                    className={`w-full p-4 rounded-2xl border text-left flex items-center justify-between transition-all ${
-                      selectedCourseId === course.id
-                        ? 'bg-indigo-50/70 border-indigo-500 dark:bg-indigo-950/20 dark:border-indigo-800'
-                        : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/30'
-                    }`}
-                  >
-                    <div className="space-y-1 pr-3 flex-grow overflow-hidden">
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">{course.title}</h4>
-                      <p className="text-[10px] text-slate-400 font-semibold uppercase">{course.price === 0 ? 'Free' : `${course.price.toLocaleString('vi-VN')} VND`}</p>
-                    </div>
-                    <ChevronRight className={`h-4.5 w-4.5 text-slate-400 transition-transform ${selectedCourseId === course.id ? 'translate-x-1 text-indigo-500' : ''}`} />
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Right panel: Course Curriculum Manager (2/3 width) */}
-          <div className="lg:col-span-2 space-y-4">
-            {selectedCourseId ? (
-              <>
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider flex items-center space-x-2">
-                    <FolderOpen className="h-5 w-5 text-indigo-500" />
-                    <span>Manage Curriculum</span>
-                  </h3>
-                  
-                  <button
-                    onClick={() => handleOpenChapterModal(null)}
-                    className="inline-flex items-center space-x-1 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/30 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/25 rounded-xl text-xs font-bold transition-all active:scale-95"
-                  >
-                    <Plus className="h-4 w-4" />
-                    <span>Add Chapter</span>
-                  </button>
-                </div>
-
-                {loadingCurriculum ? (
-                  <div className="p-12 text-center">
-                    <RefreshCw className="h-8 w-8 animate-spin text-indigo-600 mx-auto" />
-                  </div>
-                ) : curriculum.length === 0 ? (
-                  <div className="bg-white dark:bg-slate-900 rounded-3xl p-12 border border-slate-300 dark:border-slate-800 text-center text-slate-400 dark:text-slate-400">
-                    <FolderPlus className="h-10 w-10 mx-auto opacity-35 mb-2" />
-                    <p className="font-bold text-xs">Syllabus Empty</p>
-                    <p className="text-[10px] text-slate-400 mt-0.5">Start creating chapters to build the course curriculum.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {curriculum.map((chapter, chapIdx) => (
-                      <div
-                        key={chapter.id}
-                        className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-300 dark:border-slate-800 p-5 shadow-sm space-y-4"
-                      >
-                        {/* Chapter header */}
-                        <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800 pb-3.5">
-                          <div className="space-y-0.5">
-                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Chapter {chapter.orderIndex + 1}</span>
-                            <h4 className="text-sm font-extrabold text-slate-900 dark:text-white">{chapter.title}</h4>
-                          </div>
-                          
-                          {/* Actions */}
-                          <div className="flex items-center space-x-1 bg-slate-50 dark:bg-slate-950/40 p-1 rounded-xl">
-                            <button
-                              onClick={() => handleReorderChapters('up', chapIdx)}
-                              disabled={chapIdx === 0}
-                              className="p-1.5 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 disabled:opacity-30 transition-colors"
-                            >
-                              <ArrowUp className="h-4 w-4" />
-                            </button>
-                            <button
-                              onClick={() => handleReorderChapters('down', chapIdx)}
-                              disabled={chapIdx === curriculum.length - 1}
-                              className="p-1.5 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 disabled:opacity-30 transition-colors"
-                            >
-                              <ArrowDown className="h-4 w-4" />
-                            </button>
-                            <button
-                              onClick={() => handleOpenChapterModal(chapter)}
-                              className="p-1.5 text-slate-400 hover:text-indigo-600 transition-colors"
-                            >
-                              <Edit className="h-4 w-4" />
-                            </button>
-                            <button
-                              onClick={() => handleDeleteChapter(chapter.id)}
-                              className="p-1.5 text-slate-400 hover:text-rose-500 transition-colors"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Lessons List in chapter */}
-                        <div className="space-y-2.5">
-                          {chapter.lessonSummaryResponses?.map((lesson, lIdx) => (
-                            <div
-                              key={lesson.id}
-                              className="p-3.5 rounded-2xl border border-slate-200 hover:border-slate-200/80 dark:border-slate-800 dark:hover:border-slate-800 flex items-center justify-between gap-4 transition-all bg-slate-50/20 dark:bg-slate-950/10"
-                            >
-                              <div className="space-y-0.5 text-left flex-grow">
-                                <h5 className="text-xs font-bold text-slate-800 dark:text-slate-300">
-                                  {lesson.orderIndex + 1}. {lesson.title}
-                                </h5>
-                                <div className="flex items-center space-x-2 text-[10px] text-slate-400 font-semibold">
-                                  <span>{lesson.estimatedDurationMinutes} mins</span>
-                                  {lesson.trial && (
-                                    <span className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">Preview</span>
-                                  )}
-                                </div>
-                              </div>
-
-                              {/* Lesson operations */}
-                              <div className="flex items-center space-x-3 shrink-0">
-                                {/* Quiz link */}
-                                <Link
-                                  to={`/admin/quizzes/${lesson.id}`}
-                                  className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-[10px] font-black text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 bg-white dark:bg-slate-900 transition-colors"
-                                >
-                                  Manage Quiz
-                                </Link>
-
-                                {/* Order & edit */}
-                                <div className="flex items-center space-x-0.5 bg-white dark:bg-slate-905 border border-slate-200 dark:border-slate-800 p-0.5 rounded-lg">
-                                  <button
-                                    onClick={() => handleReorderLessons(chapter.id, 'up', lIdx)}
-                                    disabled={lIdx === 0}
-                                    className="p-1 text-slate-400 hover:text-slate-800 disabled:opacity-30"
-                                  >
-                                    <ArrowUp className="h-3 w-3" />
-                                  </button>
-                                  <button
-                                    onClick={() => handleReorderLessons(chapter.id, 'down', lIdx)}
-                                    disabled={lIdx === chapter.lessonSummaryResponses.length - 1}
-                                    className="p-1 text-slate-400 hover:text-slate-800 disabled:opacity-30"
-                                  >
-                                    <ArrowDown className="h-3 w-3" />
-                                  </button>
-                                  <button
-                                    onClick={() => handleOpenLessonModal(chapter.id, lesson)}
-                                    className="p-1 text-slate-400 hover:text-indigo-600"
-                                  >
-                                    <Edit className="h-3 w-3" />
-                                  </button>
-                                  <button
-                                    onClick={() => handleDeleteLesson(lesson.id)}
-                                    className="p-1 text-slate-400 hover:text-rose-500"
-                                  >
-                                    <Trash2 className="h-3 w-3" />
-                                  </button>
-                                </div>
-                              </div>
-
-                            </div>
-                          ))}
-
-                          {/* Add lesson button */}
-                          <button
-                            onClick={() => handleOpenLessonModal(chapter.id, null)}
-                            className="w-full py-2.5 border-2 border-dashed border-slate-200 hover:border-indigo-400 dark:border-slate-800/80 rounded-2xl flex items-center justify-center space-x-1.5 text-xs text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all font-bold"
-                          >
-                            <Plus className="h-4 w-4 animate-pulse" />
-                            <span>Create New Lesson</span>
-                          </button>
-                        </div>
-
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="bg-white dark:bg-slate-900 rounded-3xl p-16 border border-slate-300 dark:border-slate-800 text-center text-slate-500 dark:text-slate-400 h-64 flex flex-col justify-center items-center">
-                <BookOpen className="h-10 w-10 opacity-30 mb-2" />
-                <p className="font-bold text-xs">No Course Selected</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">Please click and select a course from the left sidebar to manage curriculum.</p>
-              </div>
-            )}
-          </div>
-
-        </div>
-      )}
-
-      {/* 2. PROBLEMS TAB CONTENT */}
       {activeTab === 'problems' && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
@@ -1349,7 +887,7 @@ const AdminDashboard: React.FC = () => {
                             className="inline-flex items-center space-x-1 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/30 dark:hover:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-900/20 rounded-xl text-xs font-bold transition-all shadow-sm"
                           >
                             <Settings className="h-3.5 w-3.5" />
-                            <span>Sinh Testcases</span>
+                            <span>{t('coding.admin_generate_testcases')}</span>
                           </Link>
                         </td>
                       </tr>
@@ -2130,7 +1668,7 @@ const AdminDashboard: React.FC = () => {
       {activeTab === 'emails' && (
         <div className="space-y-6">
           <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col gap-6">
-            <div className="flex justify-between items-start">
+            <div className="flex flex-wrap gap-4 justify-between items-start">
               <div>
                 <h3 className="text-base font-black text-slate-950 dark:text-white flex items-center space-x-2">
                   <Settings className="h-5 w-5 text-indigo-500" />
@@ -2174,7 +1712,7 @@ const AdminDashboard: React.FC = () => {
                   </h4>
                 </div>
                 
-                <div className="flex items-center space-x-3">
+                <div className="flex flex-wrap items-center gap-3">
                     <div className="relative">
                       <input
                         type="text"
@@ -2463,188 +2001,6 @@ const AdminDashboard: React.FC = () => {
                 Close
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* CHAPTER MODAL */}
-      {showChapterModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl relative text-left">
-            <h3 className="text-base font-black text-slate-950 dark:text-white">
-              {editingChapter ? 'Edit Chapter' : 'Add New Chapter'}
-            </h3>
-            <form onSubmit={handleSaveChapter} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Chapter Title (Required):</label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Example: Chapter 1: Introduction..."
-                  value={chapterTitle}
-                  onChange={(e) => setChapterTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-202 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/40 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:text-white font-semibold"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowChapterModal(false)}
-                  className="px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/15"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* LESSON MODAL */}
-      {showLessonModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl relative text-left my-8">
-            <h3 className="text-base font-black text-slate-950 dark:text-white">
-              {editingLessonId ? 'Edit Lesson' : 'Add New Lesson'}
-            </h3>
-            
-            <form onSubmit={handleSaveLesson} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Title */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Lesson Title:</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Example: Number Data Type"
-                    value={lessonTitle}
-                    onChange={(e) => setLessonTitle(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-202 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/40 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:text-white font-semibold"
-                  />
-                </div>
-
-                {/* Duration */}
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Duration (Minutes):</label>
-                  <input
-                    type="number"
-                    min="1"
-                    required
-                    value={lessonDuration}
-                    onChange={(e) => setLessonDuration(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-202 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/40 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all dark:text-white font-semibold"
-                  />
-                </div>
-              </div>
-
-              {/* Status and Trial */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Status:</label>
-                  <select
-                    value={lessonStatus}
-                    onChange={(e) => setLessonStatus(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/20 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
-                  >
-                    <option value="PUBLISHED">Published</option>
-                    <option value="DRAFT">Draft</option>
-                  </select>
-                </div>
-                
-                <div className="flex items-center space-x-2 pt-6">
-                  <input
-                    type="checkbox"
-                    id="trial-check"
-                    checked={lessonTrial}
-                    onChange={(e) => setLessonTrial(e.target.checked)}
-                    className="h-4.5 w-4.5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded"
-                  />
-                  <label htmlFor="trial-check" className="text-xs font-bold text-slate-600 dark:text-slate-400">Allow Preview (Trial)</label>
-                </div>
-              </div>
-
-              {/* Description */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Lesson Description:</label>
-                <textarea
-                  rows={2}
-                  placeholder="Enter lesson description..."
-                  value={lessonDesc}
-                  onChange={(e) => setLessonDesc(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-202 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/40 text-xs focus:outline-none dark:text-white font-semibold"
-                />
-              </div>
-
-              {/* Video file upload */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                  Upload Lecture Video (MP4 - Optional):
-                </label>
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      setLessonVideoFile(e.target.files[0]);
-                    }
-                  }}
-                  className="w-full text-xs text-slate-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100"
-                />
-              </div>
-
-              {/* Theory Content */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Theory Content (Markdown):</label>
-                <textarea
-                  rows={4}
-                  placeholder="Enter theory content..."
-                  value={lessonTheory}
-                  onChange={(e) => setLessonTheory(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-202 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-950/40 text-xs font-mono focus:outline-none dark:text-white"
-                />
-              </div>
-
-              {/* Sample Code */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Reference Source Code:</label>
-                <textarea
-                  rows={3}
-                  placeholder="Paste reference code here..."
-                  value={lessonSampleCode}
-                  onChange={(e) => setLessonSampleCode(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-202 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/40 text-xs font-mono focus:outline-none dark:text-white"
-                />
-              </div>
-
-              {/* Footer buttons */}
-              <div className="flex justify-end space-x-3 pt-4 border-t border-slate-200 dark:border-slate-800">
-                <button
-                  type="button"
-                  onClick={() => setShowLessonModal(false)}
-                  disabled={uploadingLesson}
-                  className="px-4 py-2.5 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  disabled={uploadingLesson}
-                  className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/15 flex items-center space-x-1.5"
-                >
-                  {uploadingLesson ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <span>Save Lesson</span>
-                  )}
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}

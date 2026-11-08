@@ -23,7 +23,8 @@ const CodingLayout = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isHome = pathname === '/';
-  const isWorkspace = /^\/oj\/problems\/[^/]+$|^\/contests\/[^/]+$/.test(pathname);
+  const isAdmin = pathname.startsWith('/admin/');
+  const isWorkspace = /^\/oj\/problems\/[^/]+$|^\/contests\/[^/]+$|^\/admin\//.test(pathname);
   const mobileMenu = useRef<HTMLDetailsElement>(null);
 
   const closeMobileMenu = () => mobileMenu.current?.removeAttribute('open');
@@ -66,7 +67,7 @@ const CodingLayout = () => {
   return (
     <div className={`coding-shell dark${isWorkspace ? ' coding-shell-workspace' : ''}`} lang="en">
       <a href="#main-content" className="coding-skip-link">{t('home.navigation.skip')}</a>
-      <header className="coding-header">
+      {!isAdmin && <header className="coding-header">
         <div className="coding-container coding-header-inner">
           <Link to="/" className="coding-brand" aria-label="CodeLearning home">
             <img src={logoImg} className="coding-brand-logo" width={35} height={30} alt="" aria-hidden="true" />
@@ -112,7 +113,7 @@ const CodingLayout = () => {
             </div>
           </details>
         </div>
-      </header>
+      </header>}
 
       <main id="main-content" tabIndex={-1} className={isHome ? undefined : 'coding-screen'}><Outlet /></main>
 
