@@ -7,6 +7,7 @@ import io.netty.resolver.DefaultAddressResolverGroup;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -90,6 +91,7 @@ public class WebClientConfig {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "sendgrid", name = "enabled", havingValue = "true", matchIfMissing = true)
     public WebClient sendGridWebClient(WebClient.Builder builder) {
         return builder.clone().build();
     }
