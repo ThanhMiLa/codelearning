@@ -27,7 +27,7 @@
 
 ## Overview
 
-CodeLearning is an e-learning and competitive programming platform that helps learners build programming skills through video-based courses and exercises. It includes an Online Judge for practicing data structures and algorithms, along with ICPC-style programming contests featuring structured rules, real-time rankings, and competitive workflows.
+CodeLearning helps users learn to code through video lessons and hands-on exercises, practice data structures and algorithms in languages such as C++, Java, Python, and JavaScript with an Online Judge that automatically runs submitted code against test cases and provides feedback on correctness, execution time, and memory usage, and take part in programming contests that follow ICPC rules, with time limits, penalty scoring, and live rankings.
 
 ## Key Features
 
