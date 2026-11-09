@@ -160,7 +160,6 @@
     "hard": "Khó",
     "badge": "Sân chơi Online Judge",
     "title": "Bài tập",
-    "desc": "Tìm bài tập tiếp theo. Lọc theo độ khó, viết lời giải và học từ mỗi lần nộp bài.",
     "search_placeholder": "Tìm kiếm bài tập theo tên...",
     "diff_all": "Độ khó: Tất cả",
     "diff_easy": "Độ khó: Dễ",
@@ -205,7 +204,6 @@
   },
   "coding": {
     "contests_title": "Cuộc thi",
-    "contests_description": "Giải bài trong thời gian giới hạn. Thi đấu cùng các lập trình viên và theo dõi bảng xếp hạng trực tiếp.",
     "profile_title": "Hồ sơ cá nhân",
     "profile_description": "Quản lý thông tin cá nhân, tài khoản và mật khẩu.",
     "admin_testcase_unknown_error": "Đã xảy ra lỗi không xác định trong quá trình sinh testcase.",

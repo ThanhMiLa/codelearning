@@ -240,10 +240,9 @@ const ContestList: React.FC = () => {
   return (
     <div className="coding-page">
 
-      <header className="coding-page-header">
+      <header className="coding-page-header coding-page-header-borderless">
         <div>
           <h1>{t('coding.contests_title')}</h1>
-          <p>{t('coding.contests_description')}</p>
         </div>
         <Trophy size={28} className="coding-page-symbol" aria-hidden="true" />
       </header>

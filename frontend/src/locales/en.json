@@ -160,7 +160,6 @@
     "hard": "Hard",
     "badge": "Online Judge Playground",
     "title": "Problems",
-    "desc": "Find your next problem. Filter by difficulty, write your solution, and learn from every submission.",
     "search_placeholder": "Search problems by name...",
     "diff_all": "Difficulty: All",
     "diff_easy": "Difficulty: Easy",
@@ -205,7 +204,6 @@
   },
   "coding": {
     "contests_title": "Contests",
-    "contests_description": "Solve under pressure. Compete with other developers and follow the live standings.",
     "profile_title": "Your profile",
     "profile_description": "Manage your identity, account details, and password.",
     "admin_testcase_unknown_error": "An unknown error occurred while generating testcases.",

@@ -42,6 +42,12 @@
   border-bottom: 1px solid var(--coding-border);
 }
 
+.coding-page-header.coding-page-header-borderless {
+  padding-bottom: 0;
+  margin-bottom: 24px;
+  border-bottom: 0;
+}
+
 .coding-page-header h1 {
   margin: 0;
   color: var(--coding-text);

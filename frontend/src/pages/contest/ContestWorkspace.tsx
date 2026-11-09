@@ -594,9 +594,6 @@ const ContestWorkspace: React.FC = () => {
                     <h2 className="text-xl font-medium text-code-text tracking-tight">
                       Contest Problems
                     </h2>
-                    <p className="text-xs text-code-muted mt-1 font-medium">
-                      Select a problem to start coding. Your progress is saved automatically.
-                    </p>
                   </div>
                   <div className="text-xs font-medium bg-code-elevated text-code-muted px-3 py-1.5 rounded-sm border-code-border border">
                     {problems.filter(p => problemStatuses[p.id] === 'solved').length} / {problems.length} Solved
@@ -975,9 +972,6 @@ const ContestWorkspace: React.FC = () => {
                     <Terminal className="h-5 w-5 text-code-accent" />
                     <span>My Submissions</span>
                   </h2>
-                  <p className="text-xs text-code-muted mt-1 font-medium">
-                    View your coding history and verdicts for this contest.
-                  </p>
                 </div>
 
                 <button
