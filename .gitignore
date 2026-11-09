@@ -49,3 +49,6 @@ frontend/scratch/
 
 #Database
 database/init.sql
+
+# Local production deployment configuration
+/docker-compose.prod.yml
