@@ -16,6 +16,7 @@
   [![Redis](https://img.shields.io/badge/Redis-7-red.svg?logo=redis)](https://redis.io/)
   [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3-orange.svg?logo=rabbitmq)](https://www.rabbitmq.com/)
   [![Docker](https://img.shields.io/badge/Docker-24+-blue.svg?logo=docker&logoColor=2496ED)](https://www.docker.com/)
+  [![Judge0](docs/image/judge0-badge.svg)](https://judge0.com/)
   [![PayOS](https://img.shields.io/badge/PayOS-VietQR-15AB64.svg?logo=data%3Aimage/svg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjQwIDEwIDE4NSAxNzUiPjxwYXRoIGZpbGw9IiMxNWFiNjQiIGQ9Ik0yMTUuMjQgNTguMDhjLTEwLjE2LTQxLjQtNDkuNDItNDIuNjktODUuMTItNDEuNjktMjEuMjUuNTktNDMuNTMgMi42OC01OC4wNSAyMC4wMS0xNS4zNCAxOC4zMS0xNC4xNyA1MS44My0xMy4xNCA3NC40NCAyLjEyIDQ2LjM5IDE5LjI4IDYzLjAyIDY1LjUxIDY1LjExIDM1LjUxIDEuNiA3OC40NCAyLjU3IDkwLjE2LTM4Ljg0IDUuMzctMTguOTggNS4zNC01OS44NC42NC03OS4wMlptLTM0LjUzIDc1LjA1Yy0xLjkyIDEuODktNC4zOCAzLjQzLTYuNTUgNS4wMy0xLjAxLjcyLS45OS0uNDYtLjk4LTEuMTktLjA0LTkuMDYtMTMuMTQtNC45My0xOS4wMS00LjU2LTUuMDUuNDgtMTAuOTkuMjctMTQuNC0zLjc2LS42OC0uNzctMS4yNC0uNzktMS45My0uMDQtOC4xNyAxMC42MS0zMi4zNC01LjItMzMuOSA4LjQ3LS4wNC44LS4zNCAxLjc5LTEuMyAxLjItMS45OS0xLjE2LTMuOS0yLjY2LTUuNy00LjExLTEuMDgtLjc5LTEuMTgtMi4xNi0uNzItMy40MSA0LjQyLTEzLjk5IDIwLjY0LTguNTcgMzEuNzQtNy45OCA0LjczLjAxIDYuNDctMi41NiA2LjYzLTYuOTEuMDUtMS4xNi45NC0xLjUyIDIuMDgtMS40OGguMTNjMS40OS0uMDIgMy4zMy0uMDQgNC44Ni4wNS41My4wMy44OS4zNiAxLjA1Ljg0LjE1LjUuMTcgMS4wMS4yMiAxLjU0LjQ2IDcuODYgNy42OSA1Ljg0IDEyLjg2IDUuNDEgNy43OS0xLjA5IDE3LjY3LTIuOTYgMjMuMDMgNC4xOCAxLjE2IDEuNjQgMy4zNiA0Ljk0IDEuODkgNi43Mm0tOS44Mi0xNC41NmMtMi4yOS0uMi00LjkzLS4zOC03LjI5LS4yNS00LjU0LjE3LTEwLjQyIDEuOTItMTUuMDggMS4zOS0xLjE0LS4wNy0yLjE0LS42Mi0yLjM4LTEuNzctLjQxLTEuNzIuMDItMy45NC0xLjE2LTUuMjItMS40Mi0xLjU2LTMuNjQtLjk1LTUuNjItMS4xNy0yLjU3LjAzLTYuNzEtLjctNy43NCwyLjM2LS41NiAyLjcxLjM3IDYuMS0zLjY1IDUuODktMy43My0uMDctNy42MS0uNzYtMTEuNDUtMS4xOS0zLS4zMy01LjktLjU1LTguODItLjE0LTEuMDYuMTMtMi4xNy4yNS0zLjIyLS4wNC00LjU2LTEuNjktOC41LTUuMTYtMTEuMzItOS4xLTQuODUtNi41Mi00LjQ1LTE1LjI1LTIuNTUtMjIuODYgMi40OC0xMC40MyA0LjgxLTIxLjY0IDcuODItMzEuOTQuMzctLjYxIDEuMjktLjA1IDEuODMuMzcgMjMuMTIsMTYuNjQgNTQuODcsMTUuNDEgNzcuODItLjYzLjQ2LjA2LjcxLjg5LjgzIDEuNDEsMy4xOCAxMi45OCA3LjA3IDI2LjI1IDguODMsMzkuNDl2LjE0Yy45OSA5LjYtNy4xNyAyMS44NC0xNi44NCAyMy4yNloiLz48cGF0aCBmaWxsPSIjMTVhYjY0IiBkPSJNMTMwLjQxIDg2LjczYy0uMzgtLjExLS43My0uMTktMS4zOC4wNy0xLjMzLjUzLTIuNTguOTUtNC41MSAxLjA5LTYuMjUuNDUtMTEuODMtMy4yNS0xNC4wNS04Ljc3LS40Ny0xLjE4LTIuMDEtMS41MS0yLjktLjYxYTEzLjk4IDEzLjk4IDAgMCAwLTQuMDIgMTEuMTdjLjY2IDcuMjUgNi45NSAxMi45IDE0LjIzIDEyLjc2IDcuNzktLjE1IDEzLjg0LTYuNTMgMTMuNzktMTQuMTEgMC0uMzgtLjE1LS44Mi0uNDUtMS4xLS4xNS0uMTQtLjM3LS4zOC0uNzEtLjQ5Wk0xNjYuODYgNzkuMTJjLTIuMjEgNS41Mi03LjggOS4yMi0xNC4wNSA4Ljc3LTEuOTItLjE0LTMuMTgtLjU3LTQuNTEtMS4wOS0uNjUtLjI2LTEuMDEtLjE4LTEuMzgtLjA3LS4zNC4xLS41Ny4zNS0uNzEuNDktLjMuMjgtLjQ1LjczLS40NSAxLjEtLjA1IDcuNTggNiAxMy45NiAxMy43OSAxNC4xMSA3LjI4LjE0IDEzLjU3LTUuNTEgMTQuMjMtMTIuNzYuMzktNC4zMS0xLjIxLTguMzMtNC4wMi0xMS4xNy0uOS0uOS0yLjQzLS41Ni0yLjkuNjFaIi8%2BPC9zdmc%2B)](https://payos.vn/)
   [![React](https://img.shields.io/badge/React-19-blue.svg?logo=react)](https://react.dev/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
@@ -31,15 +32,14 @@ CodeLearning helps users learn to code through video lessons and hands-on exerci
 
 ## Key Features
 
-| Feature | Description                                                                                                                                                                                                                              |
-| :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Online Judge & Automated Grading** | In-browser code editor supporting C++, Java, Python, and JavaScript. Users write, test, and submit code to receive instant verdicts (`Accepted`, `Wrong Answer`, `Time Limit Exceeded`, etc.) with real-time testcase progress tracking. |
-| **Competitive Contests** | Hosts ICPC-style programming contests with automated timers, penalty-based scoring, and live leaderboards featuring a freeze phase during the final minutes to maintain competitive suspense.                                            |
-| **Interactive Courses & E-Learning** | Structured curriculum organized into chapters, video lectures, and quizzes. Hands-on coding exercises are integrated directly alongside lessons with personal learning progress tracking.                                                |
-| **Cart, Wallet & Payments** | Multi-item shopping cart with voucher discounts, direct bank transfer via VietQR dynamic QR codes, and an internal virtual wallet for balance top-ups and one-click checkout.                                                            |
-| **Authentication & Role-Based Portals** | Supports email/password login and Google Single Sign-On (SSO), providing role-based workflows and permission controls for Students, Instructors, and Administrators.                                                                     |
-| **Automated Notifications & Emails** | Sends automated email notifications for account confirmations, course enrollments, payment receipts, and platform announcements.                                                                                                         |
-| **Automated Testcase Generator** | Enables instructors to generate comprehensive test suites automatically using an input generator script and a reference solution.                                                                                                        |
+| Feature | Description |
+| :--- | :--- |
+| **Courses & E-Learning** | Learn through video lessons, quizzes, and coding exercises organized into chapters, with progress tracking. |
+| **Online Judge** | Write and submit code in C++, Java, Python, or JavaScript, with automatic testcase grading, verdicts, and live submission updates. |
+| **Automated Testcase Generator** | Generate test inputs and expected outputs using a data generator and a reference solution. |
+| **Competitive Contests** | Organize ICPC-style contests with time limits, penalty scoring, live rankings, and scoreboard freezing. |
+| **Cart, Wallet & Payments** | Purchase courses through a shopping cart, apply vouchers, top up a wallet, and pay through PayOS or wallet balance. |
+| **Authentication RBAC** | Sign in with email/password or Google, with role-based access for learners, instructors, and administrators. |
 
 ## Platform Screenshots
 
@@ -117,21 +117,7 @@ VITE_API_BASE_URL=http://localhost:8080/codelearning
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
 ```
 
-### 2. Running with Docker Compose (Recommended)
-
-Docker Compose is configured with service healthchecks. Infrastructure components (PostgreSQL, Redis, RabbitMQ, and Judge0) start and verify health before launching the Spring Boot backend and React frontend.
-
-#### Development Environment:
-```bash
-docker compose -f docker-compose.dev.yml --profile backend --profile frontend --profile judge0 up -d
-```
-
-#### Production Environment:
-```bash
-docker compose -f docker-compose.prod.yml --profile backend --profile frontend --profile judge0 up -d
-```
-
-### 3. Running Locally
+### 2. Running Locally
 
 To run the application manually for development or debugging:
 
@@ -139,6 +125,12 @@ To run the application manually for development or debugging:
 ```bash
 docker compose -f docker-compose.dev.yml up -d db redis rabbitmq judge0-server judge0-workers judge0-db judge0-redis
 ```
+
+> **Note:** Judge0 1.13.1 requires **cgroup v1**.
+>
+> - **Ubuntu:** Use **Ubuntu 22.04 (x86-64)** with cgroup v1 enabled.
+> - **Windows:** Use **Docker Desktop 4.28.0 + WSL 2** as a compatibility reference and verify that Docker is using cgroup v1.
+> - **macOS (Intel / Apple Silicon):** Run Judge0 in an **Ubuntu 22.04 (x86-64) virtual machine** with Docker Engine and cgroup v1 enabled; Apple Silicon requires x86-64 emulation, which is slower and needs compatibility testing.
 
 #### Step 2: Start the Backend
 ```bash
