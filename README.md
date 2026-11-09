@@ -24,7 +24,11 @@
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
 </div>
 
-![CodeLearning Home](docs/image/home_screenshot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/home_screenshot.png" alt="CodeLearning Home" /></td>
+  </tr>
+</table>
 
 ## Overview
 
@@ -43,17 +47,41 @@ CodeLearning helps users learn to code through video lessons and hands-on exerci
 
 ## Platform Screenshots
 
-![Problems list](docs/image/problems_list_screenshot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/problems_list_screenshot.png" alt="Problems list" /></td>
+  </tr>
+</table>
 
-![Problem solving workspace](docs/image/problem_solve_screenchoot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/problem_solve_screenchoot.png" alt="Problem solving workspace" /></td>
+  </tr>
+</table>
 
-![Contests](docs/image/contests_screenshot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/contests_screenshot.png" alt="Contests" /></td>
+  </tr>
+</table>
 
-![Contest problems](docs/image/contest_problems_screenshot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/contest_problems_screenshot.png" alt="Contest problems" /></td>
+  </tr>
+</table>
 
-![Contest ranking](docs/image/contest_ranking_screenshot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/contest_ranking_screenshot.png" alt="Contest ranking" /></td>
+  </tr>
+</table>
 
-![Payments](docs/image/payment_screenshot.png)
+<table>
+  <tr>
+    <td><img src="docs/image/payment_screenshot.png" alt="Payments" /></td>
+  </tr>
+</table>
 
 ## Getting Started
 
