@@ -23,6 +23,8 @@
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com/)
 </div>
 
+![CodeLearning Home](docs/image/home_screenshot.png)
+
 ## Overview
 
 CodeLearning is an e-learning and competitive programming platform that helps learners build programming skills through video-based courses and exercises. It includes an Online Judge for practicing data structures and algorithms, along with ICPC-style programming contests featuring structured rules, real-time rankings, and competitive workflows.
@@ -39,43 +41,20 @@ CodeLearning is an e-learning and competitive programming platform that helps le
 | **Automated Notifications & Emails** | Sends automated email notifications for account confirmations, course enrollments, payment receipts, and platform announcements.                                                                                                         |
 | **Automated Testcase Generator** | Enables instructors to generate comprehensive test suites automatically using an input generator script and a reference solution.                                                                                                        |
 
-## System Architecture
-```mermaid
-%%{init: {'flowchart': {'curve': 'linear'}, 'themeVariables': {'clusterBkg': '#161a1d', 'clusterBorder': '#161a1d'}}}%%
-flowchart TD
-    subgraph ClientTier [" "]
-        FE["Frontend"]
-    end
+## Platform Screenshots
 
-    subgraph CoreTier [" "]
-        BE["Backend"]
-    end
+![Problems list](docs/image/problems_list_screenshot.png)
 
-    subgraph ServiceRow [" "]
-        direction LR
-        PAYOS["PayOS"]
-        JUDGE0["Judge0"]
-        RABBIT["RabbitMQ"]
-    end
+![Problem solving workspace](docs/image/problem_solve_screenchoot.png)
 
-    subgraph StorageAndEmailRow [" "]
-        direction LR
-        DB[("PostgreSQL")]
-        SENDGRID["SendGrid"]
-    end
+![Contests](docs/image/contests_screenshot.png)
 
-    %% Client Communication
-    FE <--> |"REST API / WebSocket STOMP"| BE
+![Contest problems](docs/image/contest_problems_screenshot.png)
 
-    %% External & Execution Services
-    BE <--> |"Checkout Links / Payment Webhooks"| PAYOS
-    BE <--> |"Batch Submissions / Verdict Webhooks"| JUDGE0
-    BE ---> |"AMQP Event Publishing"| RABBIT
-    RABBIT ---> |"Worker Email Dispatch"| SENDGRID
+![Contest ranking](docs/image/contest_ranking_screenshot.png)
 
-    %% Data and email delivery
-    BE <--> |"JDBC / Transactions & Locks"| DB
-```
+![Payments](docs/image/payment_screenshot.png)
+
 ## Getting Started
 
 ### Prerequisites
