@@ -101,7 +101,7 @@ PAYOS_CHECKSUM_KEY=your_payos_checksum_key
 
 # JUDGE0 SANDBOX (OJ)
 JUDGE0_API_URL=http://localhost:2358
-JUDGE0_WEBHOOK_URL=http://your-ip-or-domain:8080/codelearning/online-judge/webhooks/submissions (Ngrok)
+JUDGE0_WEBHOOK_URL=http://domain:8080/codelearning/online-judge/webhooks/submissions
 
 # SENDGRID CONFIGURATION
 SENDGRID_API_KEY=your_sendgrid_api_key
@@ -130,7 +130,7 @@ docker compose -f docker-compose.dev.yml up -d db redis rabbitmq judge0-server j
 >
 > - **Ubuntu:** Use **Ubuntu 22.04 (x86-64)** with cgroup v1 enabled.
 > - **Windows:** Use **Docker Desktop 4.28.0 + WSL 2** as a compatibility reference and verify that Docker is using cgroup v1.
-> - **macOS (Intel / Apple Silicon):** Run Judge0 in an **Ubuntu 22.04 (x86-64) virtual machine** with Docker Engine and cgroup v1 enabled; Apple Silicon requires x86-64 emulation, which is slower and needs compatibility testing.
+> - **macOS (Intel / Apple Silicon):** Run Judge0 in an **Ubuntu 22.04 (x86-64) virtual machine** with Docker Engine and cgroup v1 enabled.
 
 #### Step 2: Start the Backend
 ```bash
