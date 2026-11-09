@@ -140,6 +140,18 @@
   min-width: 0;
 }
 
+.coding-workspace.coding-contest-list-page {
+  height: auto;
+  min-height: calc(100dvh - 64px);
+  overflow: visible;
+}
+
+.coding-contest-list-page .coding-contest-area,
+.coding-contest-list-page .coding-contest-content {
+  height: auto;
+  overflow: visible;
+}
+
 .coding-contest-ranking {
   flex: 1;
   min-width: 0;

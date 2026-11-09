@@ -487,7 +487,7 @@ const ContestWorkspace: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col coding-workspace w-full overflow-hidden bg-code-bg text-left">
+    <div className={`flex flex-col coding-workspace w-full overflow-hidden bg-code-bg text-left${activeTab === 'problems' && selectedProblemId === null ? ' coding-contest-list-page' : ''}`}>
 
       {/* Contest header bar */}
       <div className="h-auto min-h-14 gap-3 flex-wrap py-3 border-b border-code-border bg-code-panel px-5 flex items-center justify-between shrink-0 z-10 select-none">
@@ -588,7 +588,7 @@ const ContestWorkspace: React.FC = () => {
           {activeTab === 'problems' && (
             selectedProblemId === null ? (
               // Problems List View
-              <div className="flex-grow overflow-y-auto p-6 max-w-4xl mx-auto w-full">
+              <div className="flex-grow p-6 max-w-4xl mx-auto w-full">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h2 className="text-xl font-medium text-code-text tracking-tight">
