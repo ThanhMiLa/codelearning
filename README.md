@@ -5,7 +5,7 @@
 
 <div align="center">
   <a href="https://www.codelearning.io.vn/" target="_blank">
-    <img src="https://img.shields.io/badge/Explore_the_Platform-https://www.codelearning.io.vn/-blue?style=for-the-badge&logo=vercel&logoColor=white" alt="Explore the Platform" />
+    <img src="https://img.shields.io/badge/PRODUCTION-https%3A%2F%2Fwww.codelearning.io.vn-blue?style=for-the-badge" alt="Production" />
   </a>
 
   <br/>
